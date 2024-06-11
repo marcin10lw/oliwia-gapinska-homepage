@@ -2,5 +2,11 @@
   "nav": {
     "home": "home",
     "about": "about"
+  },
+  "home": {
+    "hero": {
+      "personDescription": "Artist",
+      "heading": "Hey there! I'm a creative graphic and web designer based in sunny San Francisco, CA."
+    }
   }
 }

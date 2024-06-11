@@ -20,7 +20,7 @@
     --secondary-foreground: 228 8.77% 11.18%;
 
     --muted: 0 0% 95.69%;
-    --muted-foreground: 228deg 8.77% 11.18% / 60%;
+    --muted-foreground: 228 8.77% 11.18% / 60%;
 
     --accent: 0 0% 95.69%;
     --accent-foreground: 228 8.77% 11.18%;
@@ -41,6 +41,9 @@
     @apply border-border;
   }
   body {
-    @apply bg-background leading-normal text-foreground;
+    @apply bg-background text-foreground;
+  }
+  p {
+    @apply leading-relaxed;
   }
 }
