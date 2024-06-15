@@ -14,7 +14,7 @@ export const Navigation = () => {
 
   return (
     <div className="relative z-10">
-      <nav className="lg:px-global-lg bg-background px-global-sm py-5 lg:py-8">
+      <nav className="bg-background px-global-sm py-5 lg:px-global-lg lg:py-8">
         <div className="flex items-center justify-between">
           <Link href="/" className="border-b-[2.5px] border-b-primary pb-[0.125rem] text-base font-semibold sm:text-xl">
             Oliwia Gapińska
