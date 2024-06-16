@@ -24,8 +24,8 @@
       "placeholder": "Wpisz swój email"
     },
     "message": {
-      "label": "message",
-      "placeholder": "Wiadomość"
+      "label": "Wiadomość",
+      "placeholder": "Twoja wiadomość"
     },
     "buttonText": "Wyślij"
   }
