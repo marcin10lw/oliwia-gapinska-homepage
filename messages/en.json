@@ -11,5 +11,22 @@
     "categories": {
       "heading": "Categories"
     }
+  },
+  "contactForm": {
+    "heading": "Want to get in touch?",
+    "cta": "Interested in collaboration? Fill out the contact form.",
+    "name": {
+      "label": "name",
+      "placeholder": "Enter your name"
+    },
+    "email": {
+      "label": "email",
+      "placeholder": "Enter your email"
+    },
+    "message": {
+      "label": "message",
+      "placeholder": "Enter your message"
+    },
+    "buttonText": "Submit"
   }
 }

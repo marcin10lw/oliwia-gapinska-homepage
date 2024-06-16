@@ -11,5 +11,22 @@
     "categories": {
       "heading": "Kategorie"
     }
+  },
+  "contactForm": {
+    "heading": "Skontaktuj się ze mną.",
+    "cta": "Zainteresowany współpracą? Wypełnij formularz kontaktowy.",
+    "name": {
+      "label": "imię",
+      "placeholder": "Wpisz swoje imię"
+    },
+    "email": {
+      "label": "email",
+      "placeholder": "Wpisz swój email"
+    },
+    "message": {
+      "label": "message",
+      "placeholder": "Wiadomość"
+    },
+    "buttonText": "Wyślij"
   }
 }
