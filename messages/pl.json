@@ -7,6 +7,9 @@
     "hero": {
       "personDescription": "Artystka",
       "heading": "No hej! Jestem kreatywnym grafikiem i projektantem stron internetowych mieszkającym w słonecznym San Francisco w Kalifornii."
+    },
+    "categories": {
+      "heading": "Kategorie"
     }
   }
 }

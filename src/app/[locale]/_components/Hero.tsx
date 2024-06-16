@@ -6,7 +6,7 @@ export const Hero = async () => {
   const t = await getTranslations('home.hero');
 
   return (
-    <PaddingWrapper className="pb-[8.75rem] pt-[6.25rem]" spaceY={false}>
+    <PaddingWrapper className="pt-[6.25rem] lg:pt-[6.25rem]">
       <Container>
         <div className="text-center md:text-start">
           <p className="text-xl">Oliwia Gapińska</p>

@@ -1,12 +1,13 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
 import Link from 'next/link';
 
-import { cn } from '@/lib/utils';
-import { useTranslations } from 'next-intl';
 import { LocaleSwitcher } from './LocaleSwitcher';
+import { cn } from '@/lib/utils';
+import { Logo } from './Logo';
 
 export const Navigation = () => {
   const [navOpen, setNavOpen] = useState(false);
@@ -16,9 +17,7 @@ export const Navigation = () => {
     <div className="relative z-10">
       <nav className="px-global-x-sm lg:px-global-x-lg bg-background py-5 lg:py-8">
         <div className="flex items-center justify-between">
-          <Link href="/" className="border-b-[2.5px] border-b-primary pb-[0.125rem] text-base font-semibold sm:text-xl">
-            Oliwia Gapińska
-          </Link>
+          <Logo />
 
           <div className="flex items-center">
             <ul

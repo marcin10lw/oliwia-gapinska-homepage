@@ -4,11 +4,12 @@ import { Container } from '@/components/Container';
 import { PaddingWrapper } from '@/components/PaddingWrapper';
 import { db } from '@/lib/prisma';
 import { Language } from '@prisma/client';
-import { getLocale } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 
 export const Categories = async () => {
   const locale = (await getLocale()) as Language['locale'];
+  const t = await getTranslations('home');
   const categories = await db.category.findMany({
     where: {
       language: {
@@ -20,6 +21,7 @@ export const Categories = async () => {
   return (
     <PaddingWrapper>
       <Container>
+        <h2>{t('categories.heading')}</h2>
         {categories.length > 0 ? (
           <ul className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
             {categories.map((category) => (
