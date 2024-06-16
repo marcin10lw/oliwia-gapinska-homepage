@@ -15,7 +15,7 @@ export const Navigation = () => {
 
   return (
     <div className="relative z-10">
-      <nav className="px-global-x-sm lg:px-global-x-lg bg-background py-5 lg:py-8">
+      <nav className="bg-background px-global-x-sm py-5 lg:px-global-x-lg lg:py-8">
         <div className="flex items-center justify-between">
           <Logo />
 

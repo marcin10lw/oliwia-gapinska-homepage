@@ -10,7 +10,7 @@ export const PaddingWrapper = ({ as: Tag = 'section', className, spaceY = true, 
   return (
     <Tag
       className={cn(
-        'lg:px-global-x-lg px-global-x-sm',
+        'px-global-x-sm lg:px-global-x-lg',
         {
           'py-global-y-sm lg:py-global-y-lg': spaceY,
         },
