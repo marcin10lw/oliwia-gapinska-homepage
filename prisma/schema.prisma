@@ -9,8 +9,51 @@ datasource db {
 }
 
 model User {
-  id     Int    @id @default(autoincrement())
-  userId String @unique @default(uuid())
-  name   String
-  email  String @unique
+  id       Int    @id @default(autoincrement())
+  userId   String @unique @default(uuid())
+  name     String
+  lastName String
+  email    String @unique
+  password String
+}
+
+model Project {
+  id           Int                  @id @default(autoincrement())
+  translations ProjectTranslation[]
+  category     Category             @relation(fields: [categoryId], references: [id])
+  categoryId   Int
+}
+
+model Category {
+  id           Int                   @id @default(autoincrement())
+  translations CategoryTranslation[]
+  project      Project[]
+}
+
+model ProjectTranslation {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String
+  language    Language
+  project     Project? @relation(fields: [projectId], references: [id])
+  projectId   Int?
+}
+
+model CategoryTranslation {
+  id         Int       @id @default(autoincrement())
+  name       String
+  language   Language
+  category   Category? @relation(fields: [categoryId], references: [id])
+  categoryId Int?
+}
+
+enum Language {
+  en
+  pl
+}
+
+model Media {
+  id        Int    @id @default(autoincrement())
+  publicUrl String
+  path      String
 }
