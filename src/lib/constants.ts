@@ -1,2 +1,2 @@
-export const locales = ['en', 'pl'];
+export const locales = ['pl', 'en'];
 export type Locales = typeof locales;

@@ -14,8 +14,10 @@ const config = {
     },
     extend: {
       padding: {
-        'global-lg': '40px',
-        'global-sm': '20px',
+        'global-x-sm': '1.25rem',
+        'global-x-lg': '2.5rem',
+        'global-y-sm': '2.8125rem',
+        'global-y-lg': '3.75rem',
       },
       fontSize: {
         '5xl': '2.75rem',

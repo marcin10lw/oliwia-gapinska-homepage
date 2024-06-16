@@ -15,41 +15,42 @@ model User {
   lastName String
   email    String @unique
   password String
+
+  projects Project[]
 }
 
 model Project {
-  id           Int                  @id @default(autoincrement())
-  translations ProjectTranslation[]
-  category     Category             @relation(fields: [categoryId], references: [id])
-  categoryId   Int
+  id          Int    @id @default(autoincrement())
+  name        String
+  description String
+
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId Int
+
+  language   Language @relation(fields: [languageId], references: [id])
+  languageId Int
+
+  user   User? @relation(fields: [userId], references: [id])
+  userId Int?
 }
 
 model Category {
-  id           Int                   @id @default(autoincrement())
-  translations CategoryTranslation[]
-  project      Project[]
+  id   Int    @id @default(autoincrement())
+  name String
+
+  language   Language @relation(fields: [languageId], references: [id])
+  languageId Int
+
+  project Project[]
 }
 
-model ProjectTranslation {
-  id          Int      @id @default(autoincrement())
-  name        String
-  description String
-  language    Language
-  project     Project? @relation(fields: [projectId], references: [id])
-  projectId   Int?
-}
+model Language {
+  id     Int    @id @default(autoincrement())
+  name   String
+  locale String
 
-model CategoryTranslation {
-  id         Int       @id @default(autoincrement())
-  name       String
-  language   Language
-  category   Category? @relation(fields: [categoryId], references: [id])
-  categoryId Int?
-}
-
-enum Language {
-  en
-  pl
+  category Category[]
+  project  Project[]
 }
 
 model Media {
