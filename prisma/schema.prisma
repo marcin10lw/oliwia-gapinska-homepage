@@ -32,9 +32,13 @@ model Project {
 }
 
 model ProjectTranslation {
-  id          Int    @id @default(autoincrement())
-  name        String
+  id          Int     @id @default(autoincrement())
+  title       String
   description String
+  year        String
+  medium      String?
+  dimensions  String?
+  duration    String?
 
   project   Project @relation(fields: [projectId], references: [id])
   projectId Int

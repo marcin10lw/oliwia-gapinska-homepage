@@ -33,7 +33,7 @@ export const Categories = async () => {
             {categories.map((category) => (
               <li key={category.id}>
                 <Link
-                  href={`/category/${category.id}`}
+                  href={`/${locale}/category/${category.id}`}
                   className="text-2xl capitalize underline transition-colors hover:text-muted-foreground"
                 >
                   {category.translations[0].name}

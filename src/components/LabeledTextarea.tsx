@@ -8,7 +8,7 @@ interface LabeledTextareaProps extends TextareaProps {
 
 export const LabeledTextarea = ({ label, error, name, ...textareaProps }: LabeledTextareaProps) => {
   return (
-    <div className="flex flex-col items-start gap-3">
+    <div className="flex w-full flex-col items-start gap-3">
       <Label htmlFor={name} className="ml-[1px] text-xs uppercase">
         {label}
       </Label>

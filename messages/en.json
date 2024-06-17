@@ -1,4 +1,26 @@
 {
+  "auth": {
+    "signIn": {
+      "heading": "Sign In",
+      "email": {
+        "label": "email",
+        "placeholder": "Enter your email",
+        "error": {
+          "required": "Required",
+          "invalid": "Invalid email"
+        }
+      },
+      "password": {
+        "label": "password",
+        "placeholder": "Enter your password",
+        "error": {
+          "required": "Required",
+          "invalid": "Invalid password"
+        }
+      },
+      "buttonText": "Sign In"
+    }
+  },
   "nav": {
     "home": "home",
     "about": "about"

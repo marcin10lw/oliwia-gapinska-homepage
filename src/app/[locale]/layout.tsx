@@ -1,9 +1,11 @@
-import { cn } from '@/lib/utils';
-import type { Metadata } from 'next';
-import { Montserrat } from 'next/font/google';
-import { getMessages } from 'next-intl/server';
 import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
+import { Montserrat } from 'next/font/google';
+import type { Metadata } from 'next';
+
+import { AuthProvider } from '@/lib/providers/AuthProvider';
 import { Navigation } from '@/components/Navigation';
+import { cn } from '@/lib/utils';
 import '../globals.css';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
@@ -26,8 +28,10 @@ export default async function RootLayout({
     <html lang={locale}>
       <body className={cn(montserrat.className, 'antialiased')}>
         <NextIntlClientProvider messages={messages}>
-          <Navigation />
-          {children}
+          <AuthProvider>
+            <Navigation />
+            {children}
+          </AuthProvider>
         </NextIntlClientProvider>
       </body>
     </html>

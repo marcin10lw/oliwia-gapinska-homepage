@@ -1,19 +1,29 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useParams, usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useTransition } from 'react';
 import { useLocale } from 'next-intl';
 
 import { locales } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 
 export const LocaleSwitcher = () => {
+  const [isPending, startTransition] = useTransition();
   const locale = useLocale();
+
+  const pathname = usePathname();
+  const params = useParams<{ locale: string }>();
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const stringSearchParams = new URLSearchParams(searchParams).toString();
+  const noLocalePathname = pathname.split(`${params.locale}`)[1];
 
   const onLocaleChange = (newLocale: string) => {
-    if (!document) return;
     document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000; SameSite=Lax`;
-    router.refresh();
+    startTransition(() => {
+      router.push(`/${newLocale}${noLocalePathname}${stringSearchParams.length > 0 ? `?${stringSearchParams}` : ''}`);
+    });
   };
 
   return (
@@ -25,6 +35,7 @@ export const LocaleSwitcher = () => {
             'bg-primary text-white': locale === localeItem,
           })}
           onClick={() => onLocaleChange(localeItem)}
+          disabled={isPending}
         >
           {localeItem}
         </button>

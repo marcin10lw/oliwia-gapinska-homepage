@@ -1,4 +1,26 @@
 {
+  "auth": {
+    "signIn": {
+      "heading": "Zaloguj się",
+      "email": {
+        "label": "email",
+        "placeholder": "Wpisz swój email",
+        "error": {
+          "required": "Pole wymagane",
+          "invalid": "Nieprawidłowy email"
+        }
+      },
+      "password": {
+        "label": "hasło",
+        "placeholder": "Wpisz swoje hasło",
+        "error": {
+          "required": "Pole wymagane",
+          "invalid": "Nieprawidłowe hasło"
+        }
+      },
+      "buttonText": "Zaloguj się"
+    }
+  },
   "nav": {
     "home": "strona główna",
     "about": "o mnie"

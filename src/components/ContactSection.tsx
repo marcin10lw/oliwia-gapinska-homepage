@@ -43,6 +43,7 @@ export const ContactSection = () => {
               onChange={handleChange}
               error={errors.email && touched.email ? t(errors.email) : undefined}
               name="email"
+              type="email"
               label={t('email.label')}
               required
             />
