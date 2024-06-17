@@ -17,15 +17,25 @@
     "cta": "Zainteresowany współpracą? Wypełnij formularz kontaktowy.",
     "name": {
       "label": "imię",
-      "placeholder": "Wpisz swoje imię"
+      "placeholder": "Wpisz swoje imię",
+      "error": {
+        "required": "Pole wymagane"
+      }
     },
     "email": {
       "label": "email",
-      "placeholder": "Wpisz swój email"
+      "placeholder": "Wpisz swój email",
+      "error": {
+        "required": "Pole wymagane",
+        "invalid": "Nieprawidłowy email"
+      }
     },
     "message": {
       "label": "Wiadomość",
-      "placeholder": "Twoja wiadomość"
+      "placeholder": "Twoja wiadomość",
+      "error": {
+        "required": "Pole wymagane"
+      }
     },
     "buttonText": "Wyślij"
   }

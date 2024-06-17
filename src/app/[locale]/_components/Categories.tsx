@@ -1,19 +1,25 @@
 'use server';
 
-import { Container } from '@/components/Container';
-import { PaddingWrapper } from '@/components/PaddingWrapper';
-import { db } from '@/lib/prisma';
-import { Language } from '@prisma/client';
 import { getLocale, getTranslations } from 'next-intl/server';
+import { Language } from '@prisma/client';
 import Link from 'next/link';
 
+import { PaddingWrapper } from '@/components/PaddingWrapper';
+import { Container } from '@/components/Container';
+import { db } from '@/lib/prisma';
+
 export const Categories = async () => {
-  const locale = (await getLocale()) as Language['locale'];
   const t = await getTranslations('home');
+  const locale = (await getLocale()) as Language['locale'];
+
   const categories = await db.category.findMany({
-    where: {
-      language: {
-        locale,
+    include: {
+      translations: {
+        where: {
+          language: {
+            locale,
+          },
+        },
       },
     },
   });
@@ -30,7 +36,7 @@ export const Categories = async () => {
                   href={`/category/${category.id}`}
                   className="text-2xl capitalize underline transition-colors hover:text-muted-foreground"
                 >
-                  {category.name}
+                  {category.translations[0].name}
                 </Link>
               </li>
             ))}

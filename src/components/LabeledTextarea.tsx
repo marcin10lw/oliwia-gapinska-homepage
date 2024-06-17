@@ -3,15 +3,17 @@ import { Textarea, TextareaProps } from './ui/textarea';
 
 interface LabeledTextareaProps extends TextareaProps {
   label: string;
+  error?: string;
 }
 
-export const LabeledTextarea = ({ label, name, ...textareaProps }: LabeledTextareaProps) => {
+export const LabeledTextarea = ({ label, error, name, ...textareaProps }: LabeledTextareaProps) => {
   return (
     <div className="flex flex-col items-start gap-3">
       <Label htmlFor={name} className="ml-[1px] text-xs uppercase">
         {label}
       </Label>
-      <Textarea id={name} {...textareaProps} />
+      <Textarea isError={!!error} id={name} {...textareaProps} />
+      {!!error && <p className="mt-1 text-xs text-red-700">{error}</p>}
     </div>
   );
 };

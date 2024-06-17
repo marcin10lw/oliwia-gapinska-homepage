@@ -20,28 +20,45 @@ model User {
 }
 
 model Project {
+  id Int @id @default(autoincrement())
+
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId Int
+
+  user   User? @relation(fields: [userId], references: [id])
+  userId Int?
+
+  translations ProjectTranslation[]
+}
+
+model ProjectTranslation {
   id          Int    @id @default(autoincrement())
   name        String
   description String
+
+  project   Project @relation(fields: [projectId], references: [id])
+  projectId Int
+
+  language   Language @relation(fields: [languageId], references: [id])
+  languageId Int
+}
+
+model Category {
+  id Int @id @default(autoincrement())
+
+  project      Project[]
+  translations CategoryTranslation[]
+}
+
+model CategoryTranslation {
+  id   Int    @id @default(autoincrement())
+  name String
 
   category   Category @relation(fields: [categoryId], references: [id])
   categoryId Int
 
   language   Language @relation(fields: [languageId], references: [id])
   languageId Int
-
-  user   User? @relation(fields: [userId], references: [id])
-  userId Int?
-}
-
-model Category {
-  id   Int    @id @default(autoincrement())
-  name String
-
-  language   Language @relation(fields: [languageId], references: [id])
-  languageId Int
-
-  project Project[]
 }
 
 model Language {
@@ -49,8 +66,8 @@ model Language {
   name   String
   locale String
 
-  category Category[]
-  project  Project[]
+  projectTranslation  ProjectTranslation[]
+  categoryTranslation CategoryTranslation[]
 }
 
 model Media {

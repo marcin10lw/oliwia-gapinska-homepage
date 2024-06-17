@@ -17,15 +17,25 @@
     "cta": "Interested in collaboration? Fill out the contact form.",
     "name": {
       "label": "name",
-      "placeholder": "Enter your name"
+      "placeholder": "Enter your name",
+      "error": {
+        "required": "Required"
+      }
     },
     "email": {
       "label": "email",
-      "placeholder": "Enter your email"
+      "placeholder": "Enter your email",
+      "error": {
+        "required": "Required",
+        "invalid": "Invalid email"
+      }
     },
     "message": {
       "label": "message",
-      "placeholder": "Enter your message"
+      "placeholder": "Enter your message",
+      "error": {
+        "required": "Required"
+      }
     },
     "buttonText": "Submit"
   }
