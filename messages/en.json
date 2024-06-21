@@ -18,7 +18,11 @@
           "invalid": "Invalid password"
         }
       },
-      "buttonText": "Sign In"
+      "buttonText": "Sign In",
+      "errors": {
+        "userNotFound": "Account doesn't exist",
+        "wrongPassword": "Invalid credentials"
+      }
     }
   },
   "nav": {

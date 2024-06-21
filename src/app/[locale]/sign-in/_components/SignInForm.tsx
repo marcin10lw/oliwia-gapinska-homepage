@@ -1,10 +1,12 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
+import { useFormik } from 'formik';
+
+import { SignInFields, signInSchema } from '@/lib/schema/signInSchema.schema';
 import { LabeledInput } from '@/components/LabeledInput';
 import { Button } from '@/components/ui/button';
-import { useFormik } from 'formik';
-import { useTranslations } from 'next-intl';
-import { SignInFields, signInSchema } from './schema/signInSchema.schema';
+import { signIn } from 'next-auth/react';
 
 export const SignInForm = () => {
   const t = useTranslations('auth.signIn');
@@ -15,7 +17,9 @@ export const SignInForm = () => {
       password: '',
     },
     validationSchema: signInSchema,
-    onSubmit: async (values, { resetForm }) => {},
+    onSubmit: async (values, { resetForm }) => {
+      await signIn('credentials', { ...values, redirect: false });
+    },
   });
 
   return (

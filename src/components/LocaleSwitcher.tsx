@@ -1,9 +1,10 @@
 'use client';
 
-import { useParams, usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { useTransition } from 'react';
 import { useLocale } from 'next-intl';
 
+import { usePathname } from '@/lib/navigation';
 import { locales } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 
@@ -12,17 +13,15 @@ export const LocaleSwitcher = () => {
   const locale = useLocale();
 
   const pathname = usePathname();
-  const params = useParams<{ locale: string }>();
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const stringSearchParams = new URLSearchParams(searchParams).toString();
-  const noLocalePathname = pathname.split(`${params.locale}`)[1];
 
   const onLocaleChange = (newLocale: string) => {
     document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000; SameSite=Lax`;
     startTransition(() => {
-      router.push(`/${newLocale}${noLocalePathname}${stringSearchParams.length > 0 ? `?${stringSearchParams}` : ''}`);
+      router.push(`/${newLocale}${pathname}${stringSearchParams.length > 0 ? `?${stringSearchParams}` : ''}`);
     });
   };
 
