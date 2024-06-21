@@ -2,24 +2,21 @@
 
 import { getLocale, getTranslations } from 'next-intl/server';
 import { Language } from '@prisma/client';
-import Link from 'next/link';
 
 import { PaddingWrapper } from '@/components/PaddingWrapper';
 import { Container } from '@/components/Container';
 import { db } from '@/lib/prisma';
+import { Link } from '@/lib/navigation';
+import { FRONTEND_ROUTES } from '@/lib/navigation/routes.frontend';
 
 export const Categories = async () => {
   const t = await getTranslations('home');
   const locale = (await getLocale()) as Language['locale'];
 
-  const categories = await db.category.findMany({
-    include: {
-      translations: {
-        where: {
-          language: {
-            locale,
-          },
-        },
+  const categories = await db.categoryTranslation.findMany({
+    where: {
+      language: {
+        locale,
       },
     },
   });
@@ -33,10 +30,10 @@ export const Categories = async () => {
             {categories.map((category) => (
               <li key={category.id}>
                 <Link
-                  href={`/${locale}/category/${category.id}`}
+                  href={FRONTEND_ROUTES.category.replace(':id', String(category.categoryId))}
                   className="text-2xl capitalize underline transition-colors hover:text-muted-foreground"
                 >
-                  {category.translations[0].name}
+                  {category.name}
                 </Link>
               </li>
             ))}

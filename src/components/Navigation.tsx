@@ -15,14 +15,14 @@ export const Navigation = () => {
 
   return (
     <div className="relative z-10">
-      <nav className="bg-background px-global-x-sm py-5 lg:px-global-x-lg lg:py-8">
+      <nav className="bg-background px-global-x-sm py-5 shadow-sm lg:px-global-x-lg lg:py-8">
         <div className="flex items-center justify-between">
           <Logo />
 
           <div className="flex items-center">
             <ul
               className={cn(
-                'absolute bottom-0 left-0 right-0 -z-[1] flex flex-col items-center border-b border-muted transition-transform duration-300 ease-in-out lg:static lg:z-0 lg:translate-y-0 lg:flex-row lg:border-none',
+                'absolute bottom-0 left-0 right-0 -z-[1] flex flex-col items-center border-b border-muted bg-background transition-transform duration-300 ease-in-out lg:static lg:z-0 lg:translate-y-0 lg:flex-row lg:border-none',
                 {
                   'translate-y-full': navOpen,
                 },
