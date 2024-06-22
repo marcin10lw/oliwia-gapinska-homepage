@@ -1,17 +1,21 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
 import { Menu, X } from 'lucide-react';
-import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import Link from 'next/link';
+import { useState } from 'react';
 
+import { FRONTEND_ROUTES } from '@/lib/navigation/routes.frontend';
 import { LocaleSwitcher } from './LocaleSwitcher';
+import { SignOutButton } from './SignOutButton';
+import { useSession } from 'next-auth/react';
 import { cn } from '@/lib/utils';
 import { Logo } from './Logo';
 
 export const Navigation = () => {
   const [navOpen, setNavOpen] = useState(false);
-  const t = useTranslations('nav');
+  const t = useTranslations('');
+  const { data: session } = useSession();
 
   const closeMenu = () => setNavOpen(false);
 
@@ -44,18 +48,37 @@ export const Navigation = () => {
                     className="block px-5 py-2.5 text-xs font-semibold uppercase text-muted-foreground transition-colors hover:text-slate-500"
                     onClick={closeMenu}
                   >
-                    {t('home')}
+                    {t('nav.home')}
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="/about"
+                    href={FRONTEND_ROUTES.about}
                     className="block px-5 py-2.5 text-xs font-semibold uppercase text-muted-foreground transition-colors hover:text-slate-500"
                     onClick={closeMenu}
                   >
-                    {t('about')}
+                    {t('nav.about')}
                   </Link>
                 </li>
+                {!!session && (
+                  <>
+                    <li>
+                      <Link
+                        href={FRONTEND_ROUTES.dashboard}
+                        className="block px-5 py-2.5 text-xs font-semibold uppercase text-muted-foreground transition-colors hover:text-slate-500"
+                        onClick={closeMenu}
+                      >
+                        {t('general.signOutText')}
+                      </Link>
+                    </li>
+                    <li>
+                      <SignOutButton
+                        variant="link"
+                        className="block px-5 py-2.5 text-xs font-semibold uppercase text-muted-foreground transition-colors hover:text-slate-500 hover:no-underline"
+                      />
+                    </li>
+                  </>
+                )}
               </ul>
 
               <LocaleSwitcher />

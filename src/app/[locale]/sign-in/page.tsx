@@ -1,8 +1,10 @@
 import { getTranslations } from 'next-intl/server';
 import { SignInForm } from './_components';
+import { handleWithSessionRedirect } from '@/lib/handleProtectedRoutes';
 
 const Page = async () => {
   const t = await getTranslations('auth.signIn');
+  await handleWithSessionRedirect();
 
   return (
     <main className="grid min-h-[calc(100vh-4.5rem)] place-items-center lg:min-h-[calc(100vh-6.25rem)]">

@@ -1,26 +1,16 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { useFormik } from 'formik';
 
-import { SignInFields, signInSchema } from '@/lib/schema/signInSchema.schema';
 import { LabeledInput } from '@/components/LabeledInput';
+import { useSignIn } from './hooks/useSignIn.hook';
 import { Button } from '@/components/ui/button';
-import { signIn } from 'next-auth/react';
 
 export const SignInForm = () => {
   const t = useTranslations('auth.signIn');
-
-  const { values, handleChange, handleSubmit, errors, touched } = useFormik<SignInFields>({
-    initialValues: {
-      email: '',
-      password: '',
-    },
-    validationSchema: signInSchema,
-    onSubmit: async (values, { resetForm }) => {
-      await signIn('credentials', { ...values, redirect: false });
-    },
-  });
+  const {
+    formik: { values, handleChange, handleSubmit, errors, touched, isSubmitting },
+  } = useSignIn();
 
   return (
     <div>
@@ -45,7 +35,7 @@ export const SignInForm = () => {
             name="password"
           />
         </div>
-        <Button type="submit" className="mt-8 w-full">
+        <Button type="submit" className="mt-8 w-full" disabled={isSubmitting} isLoading={isSubmitting}>
           {t('buttonText')}
         </Button>
       </form>

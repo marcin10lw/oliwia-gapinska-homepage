@@ -5,6 +5,7 @@ import type { Metadata } from 'next';
 
 import { AuthProvider } from '@/lib/providers/AuthProvider';
 import { Navigation } from '@/components/Navigation';
+import { Toaster } from '@/components/ui/toaster';
 import { cn } from '@/lib/utils';
 import '../globals.css';
 
@@ -31,6 +32,7 @@ export default async function RootLayout({
           <AuthProvider>
             <Navigation />
             {children}
+            <Toaster />
           </AuthProvider>
         </NextIntlClientProvider>
       </body>

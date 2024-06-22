@@ -1,4 +1,7 @@
 {
+  "general": {
+    "signOutText": "Sign out"
+  },
   "auth": {
     "signIn": {
       "heading": "Sign In",
@@ -6,7 +9,7 @@
         "label": "email",
         "placeholder": "Enter your email",
         "error": {
-          "required": "Required",
+          "required": "Email required",
           "invalid": "Invalid email"
         }
       },
@@ -14,7 +17,7 @@
         "label": "password",
         "placeholder": "Enter your password",
         "error": {
-          "required": "Required",
+          "required": "Password required",
           "invalid": "Invalid password"
         }
       },
@@ -27,7 +30,8 @@
   },
   "nav": {
     "home": "home",
-    "about": "about"
+    "about": "about",
+    "dashboard": "Dashboard"
   },
   "home": {
     "hero": {

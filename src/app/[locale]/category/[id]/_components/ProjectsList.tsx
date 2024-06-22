@@ -1,9 +1,9 @@
 import { getLocale } from 'next-intl/server';
 import { Language } from '@prisma/client';
 import { db } from '@/lib/prisma';
+import Link from 'next/link';
 
 import { FRONTEND_ROUTES } from '@/lib/navigation/routes.frontend';
-import { Link } from '@/lib/navigation';
 
 export const ProjectsList = async ({ categoryId }: { categoryId: number }) => {
   const locale = (await getLocale()) as Language['locale'];

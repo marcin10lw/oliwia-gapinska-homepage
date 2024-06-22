@@ -13,7 +13,7 @@ import { Button } from './ui/button';
 export const ContactSection = () => {
   const t = useTranslations('contactForm');
 
-  const { values, handleChange, handleSubmit, errors, touched } = useFormik<ContactFields>({
+  const { values, handleChange, handleSubmit, setFieldValue, errors, touched } = useFormik<ContactFields>({
     initialValues: {
       name: '',
       email: '',
@@ -50,7 +50,7 @@ export const ContactSection = () => {
             <div className="md:col-span-2">
               <LabeledTextarea
                 value={values.message}
-                onChange={handleChange}
+                onChange={({ target }) => setFieldValue('message', target.value)}
                 error={errors.message && touched.message ? t(errors.message) : undefined}
                 label={t('message.label')}
                 required

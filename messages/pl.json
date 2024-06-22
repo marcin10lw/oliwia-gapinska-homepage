@@ -1,4 +1,7 @@
 {
+  "general": {
+    "signOutText": "Wyloguj się"
+  },
   "auth": {
     "signIn": {
       "heading": "Zaloguj się",
@@ -6,7 +9,7 @@
         "label": "email",
         "placeholder": "Wpisz swój email",
         "error": {
-          "required": "Pole wymagane",
+          "required": "Pole email wymagane",
           "invalid": "Nieprawidłowy email"
         }
       },
@@ -14,16 +17,21 @@
         "label": "hasło",
         "placeholder": "Wpisz swoje hasło",
         "error": {
-          "required": "Pole wymagane",
+          "required": "Pole hasło wymagane",
           "invalid": "Nieprawidłowe hasło"
         }
       },
-      "buttonText": "Zaloguj się"
+      "buttonText": "Zaloguj się",
+      "errors": {
+        "userNotFound": "Konto nie istnieje",
+        "wrongPassword": "Nieprawidłowe dane logowania"
+      }
     }
   },
   "nav": {
     "home": "strona główna",
-    "about": "o mnie"
+    "about": "o mnie",
+    "dashboard": "Dashboard"
   },
   "home": {
     "hero": {

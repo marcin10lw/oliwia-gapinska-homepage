@@ -2,12 +2,12 @@
 
 import { getLocale, getTranslations } from 'next-intl/server';
 import { Language } from '@prisma/client';
+import Link from 'next/link';
 
+import { FRONTEND_ROUTES } from '@/lib/navigation/routes.frontend';
 import { PaddingWrapper } from '@/components/PaddingWrapper';
 import { Container } from '@/components/Container';
 import { db } from '@/lib/prisma';
-import { Link } from '@/lib/navigation';
-import { FRONTEND_ROUTES } from '@/lib/navigation/routes.frontend';
 
 export const Categories = async () => {
   const t = await getTranslations('home');

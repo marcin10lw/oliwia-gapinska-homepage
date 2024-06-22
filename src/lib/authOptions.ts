@@ -3,8 +3,8 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import { NextAuthOptions } from 'next-auth';
 import bcrypt from 'bcrypt';
 
-import { signInSchema } from './schema/signInSchema.schema';
 import { FRONTEND_ROUTES } from './navigation/routes.frontend';
+import { signInSchema } from './schema/signInSchema.schema';
 import { validateForm } from './utils';
 import { db } from './prisma';
 
@@ -12,6 +12,23 @@ export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(db),
   pages: {
     signIn: FRONTEND_ROUTES.signIn,
+  },
+  callbacks: {
+    jwt: async function ({ token, user }) {
+      return {
+        ...token,
+        ...user,
+      };
+    },
+    session: async function ({ token, session }) {
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          ...token,
+        },
+      };
+    },
   },
   providers: [
     CredentialsProvider({
