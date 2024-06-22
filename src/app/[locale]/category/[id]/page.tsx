@@ -1,12 +1,11 @@
-import { RedirectType, redirect } from 'next/navigation';
-import { getLocale } from 'next-intl/server';
 import { Language } from '@prisma/client';
-import { Suspense } from 'react';
+import { getLocale } from 'next-intl/server';
+import { RedirectType, redirect } from 'next/navigation';
 
-import { ProjectListSkeleton, ProjectsList } from './_components';
-import { PaddingWrapper } from '@/components/PaddingWrapper';
 import { Container } from '@/components/Container';
+import { PaddingWrapper } from '@/components/PaddingWrapper';
 import { db } from '@/lib/prisma';
+import { ProjectsList } from './_components';
 
 const Page = async ({ params: { id } }: { params: { id?: string } }) => {
   if (!id || isNaN(Number(id))) {
@@ -31,9 +30,7 @@ const Page = async ({ params: { id } }: { params: { id?: string } }) => {
       <PaddingWrapper>
         <Container>
           <h1 className="mb-7 text-4xl capitalize">{categoryName}</h1>
-          <Suspense fallback={<ProjectListSkeleton />}>
-            <ProjectsList categoryId={Number(id)} />
-          </Suspense>
+          <ProjectsList categoryId={Number(id)} />
         </Container>
       </PaddingWrapper>
     </main>
