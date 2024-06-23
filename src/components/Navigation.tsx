@@ -1,21 +1,23 @@
 'use client';
 
-import { Menu, X } from 'lucide-react';
+import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
-import Link from 'next/link';
+import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
+import Link from 'next/link';
 
 import { FRONTEND_ROUTES } from '@/lib/navigation/routes.frontend';
 import { LocaleSwitcher } from './LocaleSwitcher';
 import { SignOutButton } from './SignOutButton';
-import { useSession } from 'next-auth/react';
+import { usePathname } from '@/lib/navigation';
 import { cn } from '@/lib/utils';
 import { Logo } from './Logo';
 
 export const Navigation = () => {
   const [navOpen, setNavOpen] = useState(false);
-  const t = useTranslations('');
   const { data: session } = useSession();
+  const pathname = usePathname();
+  const t = useTranslations('');
 
   const closeMenu = () => setNavOpen(false);
 
@@ -45,7 +47,12 @@ export const Navigation = () => {
                 <li>
                   <Link
                     href="/"
-                    className="block px-5 py-2.5 text-xs font-semibold uppercase text-muted-foreground transition-colors hover:text-slate-500"
+                    className={cn(
+                      'block px-5 py-2.5 text-xs font-semibold uppercase text-muted-foreground transition-colors hover:text-slate-500',
+                      {
+                        'text-slate-600': pathname === '/',
+                      },
+                    )}
                     onClick={closeMenu}
                   >
                     {t('nav.home')}
@@ -54,7 +61,12 @@ export const Navigation = () => {
                 <li>
                   <Link
                     href={FRONTEND_ROUTES.about}
-                    className="block px-5 py-2.5 text-xs font-semibold uppercase text-muted-foreground transition-colors hover:text-slate-500"
+                    className={cn(
+                      'block px-5 py-2.5 text-xs font-semibold uppercase text-muted-foreground transition-colors hover:text-slate-500',
+                      {
+                        'text-slate-600': pathname === FRONTEND_ROUTES.about,
+                      },
+                    )}
                     onClick={closeMenu}
                   >
                     {t('nav.about')}
@@ -65,10 +77,15 @@ export const Navigation = () => {
                     <li>
                       <Link
                         href={FRONTEND_ROUTES.dashboard}
-                        className="block px-5 py-2.5 text-xs font-semibold uppercase text-muted-foreground transition-colors hover:text-slate-500"
+                        className={cn(
+                          'block px-5 py-2.5 text-xs font-semibold uppercase text-muted-foreground transition-colors hover:text-slate-500',
+                          {
+                            'text-slate-600': pathname === FRONTEND_ROUTES.dashboard,
+                          },
+                        )}
                         onClick={closeMenu}
                       >
-                        {t('general.signOutText')}
+                        {t('nav.dashboard')}
                       </Link>
                     </li>
                     <li>

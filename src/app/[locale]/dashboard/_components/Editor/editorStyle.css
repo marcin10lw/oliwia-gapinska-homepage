@@ -1,0 +1,12 @@
+.ql-toolbar {
+  border: 1px solid hsl(var(--border)) !important;
+}
+
+.ql-container {
+  border: 1px solid hsl(var(--border)) !important;
+  min-height: 360px;
+}
+
+.quill-error .ql-container {
+  border: 1px solid #b91c1c !important;
+}

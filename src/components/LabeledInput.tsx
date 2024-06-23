@@ -9,7 +9,7 @@ interface LabeledInputProps extends InputProps {
 export const LabeledInput = ({ label, error, name, ...inputProps }: LabeledInputProps) => {
   return (
     <div className="flex w-full flex-col items-start">
-      <Label htmlFor={name} className="mb-3 ml-[1px] text-xs uppercase">
+      <Label htmlFor={name} className="mb-2.5 ml-[1px] text-xs uppercase">
         {label}
       </Label>
       <Input isError={!!error} id={name} {...inputProps} />

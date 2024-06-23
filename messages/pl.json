@@ -68,5 +68,61 @@
       }
     },
     "buttonText": "Wyślij"
+  },
+  "dashboard": {
+    "project": {
+      "addProjectHeading": "Nowy projekt",
+      "editProjectHeading": "Edytuj projekt",
+      "category": {
+        "label": "Kategoria"
+      },
+      "language": {
+        "label": "Język"
+      },
+      "title": {
+        "label": "Tytuł",
+        "placeholder": "Tytuł",
+        "error": {
+          "required": "Pole Tytuł wymagane"
+        }
+      },
+      "description": {
+        "label": "Opis",
+        "triggerLabel": "Podgląd",
+        "placeholder": "Szczegółowy opis",
+        "error": {
+          "required": "Pole Opis wymagane"
+        }
+      },
+      "year": {
+        "label": "Rok powstania",
+        "placeholder": "Rok powstania",
+        "error": {
+          "required": "Pole Rok powstania wymagane"
+        }
+      },
+      "medium": {
+        "label": "Medium",
+        "placeholder": "Medium"
+      },
+      "dimensions": {
+        "label": "Wymiary",
+        "placeholder": "Wymiary"
+      },
+      "duration": {
+        "label": "Czas trwania",
+        "placeholder": "Czas trwania"
+      },
+      "submitButtonText": "Dodaj projekt"
+    },
+    "projects": {
+      "heading": "Twoje projekty",
+      "linkText": "Projekty",
+      "addProjectLinkText": "Dodaj projekt"
+    },
+    "categories": {
+      "heading": "Kategorie",
+      "linkText": "Kategorie"
+    }
   }
 }
