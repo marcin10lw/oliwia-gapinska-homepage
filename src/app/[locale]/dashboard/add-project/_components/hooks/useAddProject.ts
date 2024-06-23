@@ -15,6 +15,8 @@ export const useAddProject = (initialValues?: Partial<ProjectFields>) => {
       dimensions: '',
       duration: '',
       medium: '',
+      previewImage: null,
+      images: null,
       ...(!!initialValues && initialValues),
     },
     validationSchema: projectSchema,

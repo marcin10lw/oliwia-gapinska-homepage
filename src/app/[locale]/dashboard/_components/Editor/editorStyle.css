@@ -4,6 +4,7 @@
 
 .ql-container {
   border: 1px solid hsl(var(--border)) !important;
+  border-top: none !important;
   min-height: 360px;
 }
 

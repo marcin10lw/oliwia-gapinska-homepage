@@ -20,7 +20,7 @@ export const EditorPreview = ({ triggerLabel, content, triggerBtnProps }: Editor
       <DialogTrigger asChild>
         <Button {...triggerBtnProps}>{triggerLabel}</Button>
       </DialogTrigger>
-      <DialogContent className="block h-screen w-full max-w-[71.25rem] px-0">
+      <DialogContent className="block h-[calc(100vh-2rem)] w-[calc(100%-2rem)] max-w-[71.25rem] px-0">
         <DialogHeader className="mb-8 px-8">
           <DialogTitle className="m-0">{triggerLabel}</DialogTitle>
         </DialogHeader>

@@ -12,10 +12,10 @@ export const DashboardNavigation = () => {
   const pathname = usePathname();
 
   return (
-    <nav className="flex items-center justify-center gap-5 p-5">
+    <nav className="mt-8 flex items-center justify-center gap-5 px-5">
       <Link
         href={FRONTEND_ROUTES.dashboardProjects}
-        className={cn('uppercase', {
+        className={cn('uppercase hover:underline', {
           'underline underline-offset-2': pathname === FRONTEND_ROUTES.dashboardProjects,
         })}
       >
@@ -23,7 +23,7 @@ export const DashboardNavigation = () => {
       </Link>
       <Link
         href={FRONTEND_ROUTES.dashboardCategories}
-        className={cn('uppercase', {
+        className={cn('uppercase hover:underline', {
           'underline underline-offset-2': pathname === FRONTEND_ROUTES.dashboardCategories,
         })}
       >

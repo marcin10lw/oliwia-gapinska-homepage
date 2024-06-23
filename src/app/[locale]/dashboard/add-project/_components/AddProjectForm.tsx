@@ -3,12 +3,13 @@
 import { CategoryTranslation, Language } from '@prisma/client';
 import { useTranslations } from 'next-intl';
 
-import { LabeledSelect } from '@/components/LabeledSelect';
 import { LabeledInput } from '@/components/LabeledInput';
-import { useAddProject } from './hooks/useAddProject';
-import { Separator } from '@/components/ui/separator';
+import { LabeledPictureUploader } from '@/components/LabeledPictureUploader';
+import { LabeledSelect } from '@/components/LabeledSelect';
 import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
 import { Editor } from '../../_components';
+import { useAddProject } from './hooks/useAddProject';
 
 interface AddProjectFormProps {
   categories: CategoryTranslation[];
@@ -97,6 +98,28 @@ export const AddProjectForm = ({
             value={values.description}
             onChange={(value) => setFieldValue('description', value)}
             error={errors.description && touched.description ? t(errors.description) : undefined}
+          />
+        </div>
+        <div className="lg:col-span-2">
+          <LabeledPictureUploader
+            label={t('previewImage.label')}
+            name="preview-image"
+            initialPreview={values.previewImage ? [values.previewImage] : null}
+            onChange={(files) => setFieldValue('previewImage', files[0])}
+            error={errors.previewImage && touched.previewImage ? t(errors.previewImage) : undefined}
+            mode="single"
+          />
+        </div>
+        <div className="lg:col-span-2">
+          <LabeledPictureUploader
+            label={t('images.label')}
+            name="images"
+            initialPreview={values.images ? values.images : null}
+            onChange={(files) => setFieldValue('images', files)}
+            mode="multiple"
+            fileErrors={
+              errors.images && Array.isArray(errors.images) ? errors.images.map((error) => t(error)) : undefined
+            }
           />
         </div>
       </div>

@@ -1,6 +1,16 @@
 {
   "general": {
-    "signOutText": "Sign out"
+    "signOutText": "Sign out",
+    "pictureUploader": {
+      "single": {
+        "title": "Upload image",
+        "description": "Click or drag and drop your image"
+      },
+      "multiple": {
+        "title": "Upload images",
+        "description": "Click or drag and drop your images"
+      }
+    }
   },
   "auth": {
     "signIn": {
@@ -112,6 +122,20 @@
       "duration": {
         "label": "Duration",
         "placeholder": "Duration"
+      },
+      "previewImage": {
+        "label": "Preview image",
+        "error": {
+          "sizeExceeded": "Max image size is 5MB",
+          "wrongFormat": "You can upload only images"
+        }
+      },
+      "images": {
+        "label": "Images",
+        "error": {
+          "sizeExceeded": "Max image size is 5MB",
+          "wrongFormat": "You can upload only images"
+        }
       },
       "submitButtonText": "Add project"
     },

@@ -98,7 +98,9 @@ export const Navigation = () => {
                 )}
               </ul>
 
-              <LocaleSwitcher />
+              <div className="lg:ml-2">
+                <LocaleSwitcher />
+              </div>
               <button onClick={() => setNavOpen((prev) => !prev)} className="ml-4 lg:hidden">
                 {navOpen ? <X className="size-6" /> : <Menu className="size-6" />}
               </button>

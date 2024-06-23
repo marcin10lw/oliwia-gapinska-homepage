@@ -1,6 +1,16 @@
 {
   "general": {
-    "signOutText": "Wyloguj się"
+    "signOutText": "Wyloguj się",
+    "pictureUploader": {
+      "single": {
+        "title": "Dodaj zdjęcie",
+        "description": "Kliknij lub przeciągnij i upuść zdjęcie"
+      },
+      "multiple": {
+        "title": "Dodaj zdjęcia",
+        "description": "Kliknij lub przeciągnij i upuść zdjęcia"
+      }
+    }
   },
   "auth": {
     "signIn": {
@@ -112,6 +122,20 @@
       "duration": {
         "label": "Czas trwania",
         "placeholder": "Czas trwania"
+      },
+      "previewImage": {
+        "label": "Podglądowe zdjęcie",
+        "error": {
+          "sizeExceeded": "Maksymalny rozmiar to 5MB",
+          "wrongFormat": "Możesz dodać tylko zdjęcia"
+        }
+      },
+      "images": {
+        "label": "Zdjęcia",
+        "error": {
+          "sizeExceeded": "Maksymalny rozmiar jednego zdjęcia to 5MB",
+          "wrongFormat": "Możesz dodać tylko zdjęcia"
+        }
       },
       "submitButtonText": "Dodaj projekt"
     },
