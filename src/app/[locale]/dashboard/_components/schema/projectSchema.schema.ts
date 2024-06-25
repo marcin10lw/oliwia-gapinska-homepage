@@ -3,14 +3,14 @@ import * as yup from 'yup';
 import { IMAGE_ACCEPTED_FORMATS, IMAGE_MAX_SIZE } from '../constants';
 
 export const projectSchema = yup.object().shape({
-  category: yup.string(),
-  language: yup.string(),
-  title: yup.string().required('title.error.required'),
-  description: yup.string().required('description.error.required'),
-  year: yup.string().required('year.error.required'),
-  medium: yup.string(),
-  dimensions: yup.string(),
-  duration: yup.string(),
+  category: yup.string().required(),
+  language: yup.string().required(),
+  title: yup.string().trim().required('title.error.required'),
+  description: yup.string().trim().required('description.error.required'),
+  year: yup.string().trim().required('year.error.required'),
+  medium: yup.string().trim().nullable(),
+  dimensions: yup.string().trim().nullable(),
+  duration: yup.string().trim().nullable(),
   previewImage: getFileSchema({
     size: { maxFileSize: IMAGE_MAX_SIZE, errorMessage: 'previewImage.error.sizeExceeded' },
     format: {

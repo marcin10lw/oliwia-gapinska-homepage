@@ -68,7 +68,7 @@ export const AddProjectForm = ({
           type="number"
         />
         <LabeledInput
-          value={values.medium}
+          value={values.medium ?? undefined}
           onChange={handleChange}
           error={errors.medium && touched.medium ? t(errors.medium) : undefined}
           label={t('medium.label')}
@@ -76,7 +76,7 @@ export const AddProjectForm = ({
           name="medium"
         />
         <LabeledInput
-          value={values.dimensions}
+          value={values.dimensions ?? undefined}
           onChange={handleChange}
           error={errors.dimensions && touched.dimensions ? t(errors.dimensions) : undefined}
           label={t('dimensions.label')}
@@ -84,7 +84,7 @@ export const AddProjectForm = ({
           name="dimensions"
         />
         <LabeledInput
-          value={values.duration}
+          value={values.duration ?? undefined}
           onChange={handleChange}
           error={errors.duration && touched.duration ? t(errors.duration) : undefined}
           label={t('duration.label')}
@@ -124,7 +124,9 @@ export const AddProjectForm = ({
         </div>
       </div>
       <div className="mt-6 flex justify-end">
-        <Button type="submit">{t('submitButtonText')}</Button>
+        <Button type="submit" isLoading={isSubmitting} disabled={isSubmitting}>
+          {t('submitButtonText')}
+        </Button>
       </div>
     </form>
   );

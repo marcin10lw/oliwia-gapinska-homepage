@@ -4,7 +4,6 @@ import 'cropperjs/dist/cropper.css';
 import { ReactNode, createRef, useState } from 'react';
 import { Cropper, ReactCropperElement } from 'react-cropper';
 
-import { FileWithId } from '@/lib/types';
 import { dataUrlToFile } from '@/lib/utils';
 import { Button } from './ui/button';
 import {
@@ -18,7 +17,7 @@ import {
 } from './ui/dialog';
 
 interface ImageCropperProps {
-  image: FileWithId;
+  image: File;
   triggerElement?: ReactNode;
   onSaveCroppedImage: (id: string, file: File) => void;
 }
@@ -28,7 +27,7 @@ export const ImageCropper = ({ image, triggerElement, onSaveCroppedImage }: Imag
 
   const cropperRef = createRef<ReactCropperElement>();
 
-  const imageSrc = URL.createObjectURL(image.file);
+  const imageSrc = URL.createObjectURL(image);
 
   const onSaveFile = async () => {
     const cropper = cropperRef.current?.cropper;
@@ -40,10 +39,10 @@ export const ImageCropper = ({ image, triggerElement, onSaveCroppedImage }: Imag
     while (true) {
       if (quality <= 0) break;
       const canvasDataURL = cropper.getCroppedCanvas().toDataURL('image/jpeg', quality);
-      const file = await dataUrlToFile(canvasDataURL, image.file.name, 'image/jpeg');
+      const file = await dataUrlToFile(canvasDataURL, image.name, 'image/jpeg');
 
-      if (file.size <= image.file.size) {
-        onSaveCroppedImage(image.id, file);
+      if (file.size <= image.size) {
+        onSaveCroppedImage(image.name, file);
         break;
       }
 
@@ -65,7 +64,7 @@ export const ImageCropper = ({ image, triggerElement, onSaveCroppedImage }: Imag
 
       <DialogContent className="w-[calc(100%-5rem)] max-w-[71.25rem]">
         <DialogHeader>
-          <DialogTitle>Change avatar</DialogTitle>
+          <DialogTitle className="m-0">Change avatar</DialogTitle>
           <DialogDescription>Select and edit you new profile picture</DialogDescription>
         </DialogHeader>
 
@@ -78,6 +77,7 @@ export const ImageCropper = ({ image, triggerElement, onSaveCroppedImage }: Imag
           minCropBoxHeight={100}
           minCropBoxWidth={100}
           responsive={true}
+          className="max-h-[calc(100vh-20rem)]"
           autoCropArea={1}
           guides={true}
           checkOrientation={false}

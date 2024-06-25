@@ -28,6 +28,11 @@ model Project {
   user   User? @relation(fields: [userId], references: [id])
   userId Int?
 
+  previewImage   Media? @relation("previewImage", fields: [previewImageId], references: [id])
+  previewImageId Int?   @unique
+
+  images Media[]
+
   translations ProjectTranslation[]
 }
 
@@ -77,5 +82,10 @@ model Language {
 model Media {
   id        Int    @id @default(autoincrement())
   publicUrl String
-  path      String
+  path      String @unique
+
+  previewImageProject Project? @relation("previewImage")
+
+  project   Project? @relation(fields: [projectId], references: [id])
+  projectId Int?
 }

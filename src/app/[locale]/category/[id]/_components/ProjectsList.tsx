@@ -8,17 +8,13 @@ import { FRONTEND_ROUTES } from '@/lib/navigation/routes.frontend';
 export const ProjectsList = async ({ categoryId }: { categoryId: number }) => {
   const locale = (await getLocale()) as Language['locale'];
 
-  const projects = await db.project.findMany({
+  const projects = await db.projectTranslation.findMany({
     where: {
-      categoryId,
-    },
-    include: {
-      translations: {
-        where: {
-          language: {
-            locale,
-          },
-        },
+      project: {
+        categoryId,
+      },
+      language: {
+        locale,
       },
     },
   });
@@ -33,10 +29,10 @@ export const ProjectsList = async ({ categoryId }: { categoryId: number }) => {
           >
             <div className="flex h-full w-full items-end bg-gradient-to-b from-transparent to-neutral-500 p-5">
               <div>
-                <h2 className="mb-0 text-2xl font-semibold text-white">{project.translations[0].title}</h2>
+                <h2 className="mb-0 text-2xl font-semibold text-white">{project.title}</h2>
                 <dl className="flex items-center gap-1.5 text-sm capitalize text-white">
                   <dt>Medium:</dt>
-                  <dd>{project.translations[0].medium}</dd>
+                  <dd>{project.medium}</dd>
                 </dl>
               </div>
             </div>

@@ -1,9 +1,8 @@
+import { getPublicUrlOfFile } from './fileUpload';
+
 export interface SelectOption {
   label: string;
   value: string;
 }
 
-export interface FileWithId {
-  file: File;
-  id: string;
-}
+export type FileUploadResponse = NonNullable<Awaited<ReturnType<typeof getPublicUrlOfFile>>>;
