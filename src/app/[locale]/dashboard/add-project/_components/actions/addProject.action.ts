@@ -6,6 +6,8 @@ import { checkExistingUser } from '@/lib/checkExistingUser';
 import { FileUploadResponse } from '@/lib/types';
 import { validateForm } from '@/lib/utils';
 import { db } from '@/lib/prisma';
+import { revalidatePath } from 'next/cache';
+import { FRONTEND_ROUTES } from '@/lib/navigation/routes.frontend';
 
 export const addProject = async (formData: FormData) => {
   const formFields = {
@@ -82,6 +84,9 @@ export const addProject = async (formData: FormData) => {
         },
       },
     });
+
+    revalidatePath(FRONTEND_ROUTES.dashboard);
+    revalidatePath(FRONTEND_ROUTES.category);
     return { ok: true };
   } catch (error) {
     if (previewImageUploadData) {

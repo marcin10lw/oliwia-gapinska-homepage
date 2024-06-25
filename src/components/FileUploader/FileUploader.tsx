@@ -1,24 +1,22 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
+import { useTranslations } from 'next-intl';
 
 import { IMAGE_ACCEPTED_FORMATS } from '@/app/[locale]/dashboard/_components/constants';
+import { FileUploaderProps } from './types';
 import { cn } from '@/lib/utils';
-import { ImageCropper } from '../ImageCropper';
-import { ImagePreview } from '../ImagePreview';
-import { PictureUploaderProps } from './types';
 
-export const PictureUploader = ({
+export const FileUploader = ({
   name,
   initialPreview,
   onChange,
   mode,
   accept = { 'image/*': IMAGE_ACCEPTED_FORMATS },
   isError,
-  fileErrors,
-}: PictureUploaderProps) => {
+  renderPreview,
+}: FileUploaderProps) => {
   const [preview, setPreview] = useState<File[] | null>(initialPreview);
   const t = useTranslations(`general.pictureUploader.${mode}`);
 
@@ -41,7 +39,7 @@ export const PictureUploader = ({
     [mode, onChange, preview],
   );
 
-  const onPreviewFileDelete = (name: string) => {
+  const onPreviewFileDelete = (name: string): File[] | undefined => {
     const newFiles = preview?.filter((item) => item.name !== name);
 
     if (!newFiles) return;
@@ -52,11 +50,10 @@ export const PictureUploader = ({
       }
       return prev;
     });
-
     onChange(newFiles);
   };
 
-  const onSaveCroppedImage = (name: string, file: File) => {
+  const onUpdateFile = (name: string, file: File) => {
     if (!preview) return;
     const newFiles = preview.map((prev) => {
       if (prev.name === name) {
@@ -88,31 +85,7 @@ export const PictureUploader = ({
           <p className="font-medium">{t('title')}</p>
           <p className="text-muted-foreground">{t('description')}</p>
         </div>
-        {preview && preview.length > 0 && (
-          <div className="flex flex-wrap items-start justify-center gap-5" onClick={(event) => event.stopPropagation()}>
-            {preview.map((item, i) => (
-              <ImageCropper
-                key={item.name}
-                image={item}
-                onSaveCroppedImage={onSaveCroppedImage}
-                triggerElement={
-                  <div
-                    className="cursor-pointer"
-                    onClick={(event) => {
-                      event.stopPropagation();
-                    }}
-                  >
-                    <ImagePreview
-                      image={item}
-                      onPreviewFileDelete={onPreviewFileDelete}
-                      error={fileErrors ? fileErrors[i] : undefined}
-                    />
-                  </div>
-                }
-              />
-            ))}
-          </div>
-        )}
+        {preview && renderPreview && renderPreview(preview, setPreview, onPreviewFileDelete, onUpdateFile)}
       </div>
     </div>
   );

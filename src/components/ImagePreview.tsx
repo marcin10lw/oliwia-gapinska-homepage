@@ -11,7 +11,7 @@ export const ImagePreview = ({
 }: {
   image: File;
   error?: string;
-  onPreviewFileDelete: (id: string) => void;
+  onPreviewFileDelete: (name: string) => void;
 }) => {
   return (
     <div className="w-20">

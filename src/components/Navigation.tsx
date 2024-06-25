@@ -24,14 +24,14 @@ export const Navigation = () => {
   return (
     <>
       <div
-        className={cn('fixed inset-0 bg-black/10 transition-all duration-300 lg:hidden', {
+        className={cn('fixed inset-0 z-10 bg-black/10 transition-all duration-300 lg:hidden', {
           'visible opacity-100 lg:hidden': navOpen,
           'invisible opacity-0': !navOpen,
         })}
         onClick={closeMenu}
       />
       <div className="relative z-10">
-        <nav className="bg-background px-global-x-sm py-5 shadow-sm lg:px-global-x-lg lg:py-8">
+        <nav className="border-b border-slate-100 bg-background px-global-x-sm py-5 lg:px-global-x-lg lg:py-8">
           <div className="flex items-center justify-between">
             <Logo />
 

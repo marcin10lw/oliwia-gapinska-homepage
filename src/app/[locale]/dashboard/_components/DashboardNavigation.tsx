@@ -12,7 +12,7 @@ export const DashboardNavigation = () => {
   const pathname = usePathname();
 
   return (
-    <nav className="mt-8 flex items-center justify-center gap-5 px-5">
+    <nav className="sticky top-0 z-10 flex items-center justify-center gap-5 border-b border-neutral-100 bg-background px-5 py-5 lg:py-8">
       <Link
         href={FRONTEND_ROUTES.dashboardProjects}
         className={cn('uppercase hover:underline', {

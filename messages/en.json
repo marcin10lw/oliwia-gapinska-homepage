@@ -137,6 +137,13 @@
           "wrongFormat": "You can upload only images"
         }
       },
+      "toast": {
+        "projectAddedSuccess": "A new project has been successfully created"
+      },
+      "errors": {
+        "internal": "Something went wrong...",
+        "userNotFound": "Account doesn't exist"
+      },
       "submitButtonText": "Add project"
     },
     "projects": {

@@ -32,7 +32,7 @@ export const DashboardProjects = async () => {
                     width={400}
                     height={400}
                     src={previewImage}
-                    className="aspect-square"
+                    className="aspect-square object-cover"
                   />
                 ) : (
                   <div className="aspect-square bg-slate-100" />

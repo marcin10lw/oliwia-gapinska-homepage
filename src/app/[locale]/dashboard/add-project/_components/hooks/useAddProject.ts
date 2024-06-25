@@ -1,11 +1,17 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { useFormik } from 'formik';
 
 import { ProjectFields, projectSchema } from '../../../_components';
 import { addProject } from '../actions/addProject.action';
+import { useToast } from '@/components/ui/use-toast';
 
 export const useAddProject = (initialValues?: Partial<ProjectFields>) => {
+  const t = useTranslations('dashboard.project');
+
+  const { toast } = useToast();
+
   const formik = useFormik<ProjectFields>({
     initialValues: {
       category: '',
@@ -21,7 +27,7 @@ export const useAddProject = (initialValues?: Partial<ProjectFields>) => {
       ...(!!initialValues && initialValues),
     },
     validationSchema: projectSchema,
-    onSubmit: async (values) => {
+    onSubmit: async (values, { resetForm }) => {
       const formData = new FormData();
       formData.append('category', values.category);
       formData.append('language', values.language);
@@ -38,7 +44,23 @@ export const useAddProject = (initialValues?: Partial<ProjectFields>) => {
         });
       }
 
-      await addProject(formData);
+      const res = await addProject(formData);
+
+      if (!res.ok) {
+        toast({
+          title: t(res.error),
+          variant: 'destructive',
+        });
+        return;
+      }
+
+      if (res.ok) {
+        resetForm();
+        toast({
+          title: t('toast.projectAddedSuccess'),
+        });
+        return;
+      }
     },
   });
 

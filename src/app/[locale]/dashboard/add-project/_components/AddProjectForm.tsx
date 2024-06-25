@@ -3,8 +3,9 @@
 import { CategoryTranslation, Language } from '@prisma/client';
 import { useTranslations } from 'next-intl';
 
+import { ImagePreviewCropper } from '@/components/ImagePreviewCropper';
+import { LabeledFileUploader } from '@/components/LabeledFileUploader';
 import { LabeledInput } from '@/components/LabeledInput';
-import { LabeledPictureUploader } from '@/components/LabeledPictureUploader';
 import { LabeledSelect } from '@/components/LabeledSelect';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -101,25 +102,66 @@ export const AddProjectForm = ({
           />
         </div>
         <div className="lg:col-span-2">
-          <LabeledPictureUploader
+          <LabeledFileUploader
             label={t('previewImage.label')}
             name="preview-image"
             initialPreview={values.previewImage ? [values.previewImage] : null}
             onChange={(files) => setFieldValue('previewImage', files[0])}
             error={errors.previewImage && touched.previewImage ? t(errors.previewImage) : undefined}
             mode="single"
+            renderPreview={(preview, _, onPreviewFileDelete, onUpdateFile) => {
+              return (
+                preview &&
+                preview.length > 0 && (
+                  <div
+                    className="flex flex-wrap items-start justify-center gap-5"
+                    onClick={(event) => event.stopPropagation()}
+                  >
+                    {preview.map((item) => (
+                      <ImagePreviewCropper
+                        key={item.name}
+                        file={item}
+                        onPreviewFileDelete={onPreviewFileDelete}
+                        onSaveCroppedImage={onUpdateFile}
+                      />
+                    ))}
+                  </div>
+                )
+              );
+            }}
           />
         </div>
         <div className="lg:col-span-2">
-          <LabeledPictureUploader
+          <LabeledFileUploader
             label={t('images.label')}
             name="images"
             initialPreview={values.images ? values.images : null}
             onChange={(files) => setFieldValue('images', files)}
             mode="multiple"
-            fileErrors={
-              errors.images && Array.isArray(errors.images) ? errors.images.map((error) => t(error)) : undefined
-            }
+            renderPreview={(preview, _, onPreviewFileDelete, onUpdateFile) => {
+              return (
+                preview &&
+                preview.length > 0 && (
+                  <div
+                    className="flex flex-wrap items-start justify-center gap-5"
+                    onClick={(event) => event.stopPropagation()}
+                  >
+                    {preview.map((item, i) => {
+                      const fileError = errors.images && errors.images[i] ? t(errors.images[i]) : undefined;
+                      return (
+                        <ImagePreviewCropper
+                          key={item.name}
+                          file={item}
+                          onPreviewFileDelete={onPreviewFileDelete}
+                          onSaveCroppedImage={onUpdateFile}
+                          error={fileError}
+                        />
+                      );
+                    })}
+                  </div>
+                )
+              );
+            }}
           />
         </div>
       </div>

@@ -137,6 +137,13 @@
           "wrongFormat": "Możesz dodać tylko zdjęcia"
         }
       },
+      "toast": {
+        "projectAddedSuccess": "Pomyślnie utworzono nowy projekt"
+      },
+      "errors": {
+        "internal": "Coś poszło nie tak...",
+        "userNotFound": "Konto nie istnieje"
+      },
       "submitButtonText": "Dodaj projekt"
     },
     "projects": {

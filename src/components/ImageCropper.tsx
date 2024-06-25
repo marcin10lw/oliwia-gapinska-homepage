@@ -19,7 +19,7 @@ import {
 interface ImageCropperProps {
   image: File;
   triggerElement?: ReactNode;
-  onSaveCroppedImage: (id: string, file: File) => void;
+  onSaveCroppedImage: (name: string, file: File) => void;
 }
 
 export const ImageCropper = ({ image, triggerElement, onSaveCroppedImage }: ImageCropperProps) => {
