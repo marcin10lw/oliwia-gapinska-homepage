@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { useTranslations } from 'next-intl';
 
@@ -10,27 +10,30 @@ import { cn } from '@/lib/utils';
 
 export const FileUploader = ({
   name,
-  initialPreview,
+  value,
   onChange,
   mode,
+  type = 'image',
   accept = { 'image/*': IMAGE_ACCEPTED_FORMATS },
   isError,
   renderPreview,
 }: FileUploaderProps) => {
-  const [preview, setPreview] = useState<File[] | null>(initialPreview);
-  const t = useTranslations(`general.pictureUploader.${mode}`);
+  const [preview, setPreview] = useState<File[] | null>(value);
+  const t = useTranslations(`general.pictureUploader.${type}.${mode}`);
+
+  useEffect(() => {
+    setPreview(value);
+  }, [value]);
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
       switch (mode) {
         case 'single': {
-          setPreview([acceptedFiles[0]]);
           onChange([acceptedFiles[0]]);
           break;
         }
         case 'multiple': {
           const newFiles = preview ? [...preview, ...acceptedFiles] : acceptedFiles;
-          setPreview(newFiles);
           onChange(newFiles);
           break;
         }
@@ -62,7 +65,6 @@ export const FileUploader = ({
       return prev;
     });
 
-    setPreview(newFiles);
     onChange(newFiles);
   };
 

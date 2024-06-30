@@ -1,13 +1,14 @@
 'use server';
 
+import { revalidatePath } from 'next/cache';
+
 import { getPublicUrlOfFile, removePublicFile } from '@/lib/fileUpload';
 import { ProjectFields, projectSchema } from '../../../_components';
+import { FRONTEND_ROUTES } from '@/lib/navigation/routes.frontend';
 import { checkExistingUser } from '@/lib/checkExistingUser';
 import { FileUploadResponse } from '@/lib/types';
 import { validateForm } from '@/lib/utils';
 import { db } from '@/lib/prisma';
-import { revalidatePath } from 'next/cache';
-import { FRONTEND_ROUTES } from '@/lib/navigation/routes.frontend';
 
 export const addProject = async (formData: FormData) => {
   const formFields = {
@@ -20,6 +21,7 @@ export const addProject = async (formData: FormData) => {
     duration: formData.get('duration'),
     description: formData.get('description'),
     previewImage: formData.get('previewImage'),
+    video: formData.get('video'),
     images: formData.getAll('images'),
   } as ProjectFields;
 
@@ -40,14 +42,19 @@ export const addProject = async (formData: FormData) => {
   const { user } = existingUserRes;
 
   let previewImageUploadData: FileUploadResponse | null = null;
+  let videoUploadData: FileUploadResponse | null = null;
   let imagesUploadData: FileUploadResponse[] = [];
 
-  if (formFields.previewImage) {
-    previewImageUploadData = await getPublicUrlOfFile(formFields.previewImage, '/projects/previews');
+  if (!!validatedFields.previewImage) {
+    previewImageUploadData = await getPublicUrlOfFile(validatedFields.previewImage, '/projects/previews');
   }
 
-  if (formFields.images) {
-    for (const image of formFields.images) {
+  if (!!validatedFields.video) {
+    videoUploadData = await getPublicUrlOfFile(validatedFields.video, '/projects/videos', 'videos');
+  }
+
+  if (!!validatedFields.images) {
+    for (const image of validatedFields.images) {
       const imageUploadData = await getPublicUrlOfFile(image, '/projects/images');
       if (imageUploadData) {
         imagesUploadData.push(imageUploadData);
@@ -65,11 +72,21 @@ export const addProject = async (formData: FormData) => {
         })
       : undefined;
 
+    const video = videoUploadData
+      ? await db.media.create({
+          data: {
+            path: videoUploadData.path,
+            publicUrl: videoUploadData.publicUrl,
+          },
+        })
+      : undefined;
+
     await db.project.create({
       data: {
         userId: user.id,
         categoryId: Number(validatedFields.category),
         previewImageId: previewImage ? previewImage.id : undefined,
+        videoId: video ? video.id : undefined,
         images: imagesUploadData.length > 0 ? { createMany: { data: imagesUploadData } } : undefined,
         translations: {
           create: {
@@ -89,6 +106,7 @@ export const addProject = async (formData: FormData) => {
     revalidatePath(FRONTEND_ROUTES.category);
     return { ok: true };
   } catch (error) {
+    console.log('ADD PROJECT ERROR:', error);
     if (previewImageUploadData) {
       await db.media.delete({
         where: {

@@ -43,7 +43,7 @@ export const Editor = ({ triggerLabel, label, value, onChange, error }: Descript
             ['bold', 'italic', 'underline', 'strike', 'blockquote'],
             [{ align: '' }, { align: 'center' }, { align: 'right' }, { align: 'justify' }],
             [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
-            ['link', 'image'],
+            ['link'],
             ['clean'],
           ],
         }}

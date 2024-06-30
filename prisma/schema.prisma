@@ -31,6 +31,9 @@ model Project {
   previewImage   Media? @relation("previewImage", fields: [previewImageId], references: [id])
   previewImageId Int?   @unique
 
+  video   Media? @relation("video", fields: [videoId], references: [id])
+  videoId Int?   @unique
+
   images Media[]
 
   translations ProjectTranslation[]
@@ -85,6 +88,7 @@ model Media {
   path      String @unique
 
   previewImageProject Project? @relation("previewImage")
+  videoProject        Project? @relation("video")
 
   project   Project? @relation(fields: [projectId], references: [id])
   projectId Int?

@@ -2,13 +2,25 @@
   "general": {
     "signOutText": "Sign out",
     "pictureUploader": {
-      "single": {
-        "title": "Upload image",
-        "description": "Click or drag and drop your image"
+      "image": {
+        "single": {
+          "title": "Upload image",
+          "description": "Click or drag and drop your image"
+        },
+        "multiple": {
+          "title": "Upload images",
+          "description": "Click or drag and drop your images"
+        }
       },
-      "multiple": {
-        "title": "Upload images",
-        "description": "Click or drag and drop your images"
+      "video": {
+        "single": {
+          "title": "Upload video",
+          "description": "Click or drag and drop your video"
+        },
+        "multiple": {
+          "title": "Upload videos",
+          "description": "Click or drag and drop your videos"
+        }
       }
     }
   },
@@ -128,6 +140,11 @@
         "error": {
           "sizeExceeded": "Max image size is 5MB",
           "wrongFormat": "You can upload only images"
+        },
+        "cropModal": {
+          "title": "Crop your image",
+          "description": "Adjust the image to your requirements",
+          "buttonText": "Crop"
         }
       },
       "images": {
@@ -135,6 +152,18 @@
         "error": {
           "sizeExceeded": "Max image size is 5MB",
           "wrongFormat": "You can upload only images"
+        },
+        "cropModal": {
+          "title": "Crop your image",
+          "description": "Adjust the image to your requirements",
+          "buttonText": "Crop"
+        }
+      },
+      "video": {
+        "label": "Video",
+        "error": {
+          "sizeExceeded": "Max video size is 50MB",
+          "wrongFormat": "You can upload only mp4 videos"
         }
       },
       "toast": {

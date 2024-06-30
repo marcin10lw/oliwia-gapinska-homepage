@@ -20,9 +20,14 @@ interface ImageCropperProps {
   image: File;
   triggerElement?: ReactNode;
   onSaveCroppedImage: (name: string, file: File) => void;
+  modal: {
+    title: string;
+    description: string;
+    buttonText: string;
+  };
 }
 
-export const ImageCropper = ({ image, triggerElement, onSaveCroppedImage }: ImageCropperProps) => {
+export const ImageCropper = ({ image, triggerElement, onSaveCroppedImage, modal }: ImageCropperProps) => {
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const cropperRef = createRef<ReactCropperElement>();
@@ -64,8 +69,8 @@ export const ImageCropper = ({ image, triggerElement, onSaveCroppedImage }: Imag
 
       <DialogContent className="w-[calc(100%-5rem)] max-w-[71.25rem]">
         <DialogHeader>
-          <DialogTitle className="m-0">Change avatar</DialogTitle>
-          <DialogDescription>Select and edit you new profile picture</DialogDescription>
+          <DialogTitle className="m-0">{modal.title}</DialogTitle>
+          <DialogDescription>{modal.description}</DialogDescription>
         </DialogHeader>
 
         <Cropper
@@ -77,14 +82,14 @@ export const ImageCropper = ({ image, triggerElement, onSaveCroppedImage }: Imag
           minCropBoxHeight={100}
           minCropBoxWidth={100}
           responsive={true}
-          className="max-h-[calc(100vh-20rem)]"
+          className="max-h-[calc(100vh-20rem)] min-h-96"
           autoCropArea={1}
           guides={true}
           checkOrientation={false}
         />
 
         <DialogFooter>
-          <Button onClick={onSaveFile}>Save</Button>
+          <Button onClick={onSaveFile}>{modal.buttonText}</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

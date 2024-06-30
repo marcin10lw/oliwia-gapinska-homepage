@@ -39,7 +39,7 @@ export const DashboardProjects = async () => {
                 )}
 
                 <div className="p-5">
-                  <h2 className="mb-0 text-2xl">{projectTranslation.title}</h2>
+                  <h2 className="mb-0 text-2xl">{!!projectTranslation ? projectTranslation.title : ''}</h2>
                 </div>
               </article>
             </li>

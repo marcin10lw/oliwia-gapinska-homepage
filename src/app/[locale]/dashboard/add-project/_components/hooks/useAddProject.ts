@@ -24,6 +24,7 @@ export const useAddProject = (initialValues?: Partial<ProjectFields>) => {
       medium: '',
       previewImage: null,
       images: null,
+      video: null,
       ...(!!initialValues && initialValues),
     },
     validationSchema: projectSchema,
@@ -38,6 +39,7 @@ export const useAddProject = (initialValues?: Partial<ProjectFields>) => {
       values.duration && formData.append('duration', values.duration);
       formData.append('description', values.description);
       values.previewImage && formData.append('previewImage', values.previewImage);
+      values.video && formData.append('video', values.video);
       if (values.images) {
         values.images.forEach((image) => {
           formData.append(`images`, image);

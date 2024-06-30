@@ -6,11 +6,17 @@ interface ImagePreviewCropperProps {
   error?: string;
   onSaveCroppedImage: (name: string, file: File) => void;
   onPreviewFileDelete: (name: string) => File[] | undefined;
+  modal: {
+    title: string;
+    description: string;
+    buttonText: string;
+  };
 }
 
 export const ImagePreviewCropper = ({
   file,
   error,
+  modal,
   onSaveCroppedImage,
   onPreviewFileDelete,
 }: ImagePreviewCropperProps) => {
@@ -28,6 +34,7 @@ export const ImagePreviewCropper = ({
           <ImagePreview image={file} onPreviewFileDelete={onPreviewFileDelete} error={error} />
         </div>
       }
+      modal={modal}
     />
   );
 };

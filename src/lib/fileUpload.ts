@@ -1,17 +1,22 @@
 import { v4 } from 'uuid';
 import { supa } from './supabase';
 
-const bucketName = process.env.SUPABASE_BUCKET_NAME;
+const imagesBucketName = process.env.SUPABASE_IMAGES_BUCKET_NAME;
+const videosBucketName = process.env.SUPABASE_VIDEOS_BUCKET_NAME;
 
-export const getPublicUrlOfFile = async (file: File, filePath: string) => {
+type BucketType = 'images' | 'videos';
+
+export const getPublicUrlOfFile = async (file: File, filePath: string, bucketType: BucketType = 'images') => {
   if (!file) return null;
 
   const path = `${filePath}/${v4()}${file.name}`;
 
-  const { data: dat, error } = await supa.storage.from(bucketName!).upload(path, file, {
-    cacheControl: '3600',
-    upsert: false,
-  });
+  const { data: dat, error } = await supa.storage
+    .from(bucketType === 'images' ? imagesBucketName! : videosBucketName!)
+    .upload(path, file, {
+      cacheControl: '3600',
+      upsert: false,
+    });
 
   if (error) {
     console.log('UPLOAD ERROR:', error);
@@ -20,9 +25,10 @@ export const getPublicUrlOfFile = async (file: File, filePath: string) => {
 
   const {
     data: { publicUrl },
-  } = supa.storage.from(bucketName!).getPublicUrl(`${dat?.path}`);
+  } = supa.storage.from(bucketType === 'images' ? imagesBucketName! : videosBucketName!).getPublicUrl(`${dat?.path}`);
 
   return { publicUrl, path: dat.path };
 };
 
-export const removePublicFile = async (fileId: string) => supa.storage.from(bucketName!).remove([fileId]);
+export const removePublicFile = async (fileId: string, bucketType: BucketType = 'images') =>
+  supa.storage.from(bucketType === 'images' ? imagesBucketName! : videosBucketName!).remove([fileId]);
