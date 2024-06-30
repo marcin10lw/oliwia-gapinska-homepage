@@ -85,7 +85,7 @@ export const Navigation = () => {
                         )}
                         onClick={closeMenu}
                       >
-                        {t('nav.dashboard')}
+                        Dashboard
                       </Link>
                     </li>
                     <li>

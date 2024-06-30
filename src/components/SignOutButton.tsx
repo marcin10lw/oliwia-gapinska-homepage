@@ -10,7 +10,6 @@ import { cn } from '@/lib/utils';
 
 export const SignOutButton = (props: ButtonProps) => {
   const [isSigningOut, setIsSigningOut] = useState(false);
-  const t = useTranslations();
 
   const onSignOutClick = async () => {
     setIsSigningOut(true);
@@ -25,7 +24,7 @@ export const SignOutButton = (props: ButtonProps) => {
       className={cn({ 'animate-pulse': isSigningOut }, props.className)}
       {...props}
     >
-      {t('general.signOutText')}
+      Wyloguj się
     </Button>
   );
 };

@@ -32,6 +32,6 @@ export const checkExistingUser = async <T>(): Promise<CheckExistingUserError | C
 
     return { ok: true, session, user };
   } catch (error) {
-    return { ok: false, error: 'errors.userNotFound' };
+    return { ok: false, error: 'Nie ma takiego konta' };
   }
 };

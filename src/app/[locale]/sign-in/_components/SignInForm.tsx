@@ -1,13 +1,10 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
-
 import { LabeledInput } from '@/components/LabeledInput';
 import { useSignIn } from './hooks/useSignIn.hook';
 import { Button } from '@/components/ui/button';
 
 export const SignInForm = () => {
-  const t = useTranslations('auth.signIn');
   const {
     formik: { values, handleChange, handleSubmit, errors, touched, isSubmitting },
   } = useSignIn();
@@ -19,8 +16,8 @@ export const SignInForm = () => {
           <LabeledInput
             value={values.email}
             onChange={handleChange}
-            error={errors.email && touched.email ? t(errors.email) : undefined}
-            label={t('email.label')}
+            error={errors.email && touched.email ? errors.email : undefined}
+            label="Email"
             type="email"
             required
             name="email"
@@ -28,15 +25,15 @@ export const SignInForm = () => {
           <LabeledInput
             value={values.password}
             onChange={handleChange}
-            error={errors.password && touched.password ? t(errors.password) : undefined}
-            label={t('password.label')}
+            error={errors.password && touched.password ? errors.password : undefined}
+            label="Hasło"
             type="password"
             required
             name="password"
           />
         </div>
         <Button type="submit" className="mt-8 w-full" disabled={isSubmitting} isLoading={isSubmitting}>
-          {t('buttonText')}
+          Zaloguj się
         </Button>
       </form>
     </div>

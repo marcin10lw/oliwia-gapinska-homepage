@@ -1,10 +1,8 @@
-import { getLocale, getTranslations } from 'next-intl/server';
-import { AddProjectForm } from './_components';
 import { db } from '@/lib/prisma';
+import { getLocale } from 'next-intl/server';
+import { AddProjectForm } from './_components';
 
 const Page = async () => {
-  const t = await getTranslations('dashboard.project');
-
   const locale = await getLocale();
 
   const caterogies = await db.categoryTranslation.findMany({
@@ -23,7 +21,7 @@ const Page = async () => {
 
   return (
     <div>
-      <h2 className="mb-8 text-4xl">{t('addProjectHeading')}</h2>
+      <h2 className="mb-8 text-4xl">Nowy projekt</h2>
       <AddProjectForm
         categories={caterogies}
         languages={languages}

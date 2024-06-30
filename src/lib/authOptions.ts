@@ -54,13 +54,13 @@ export const authOptions: NextAuthOptions = {
         });
 
         if (!user) {
-          throw new Error('errors.userNotFound');
+          throw new Error('Nie ma takiego konta');
         }
 
         const passwordsMatch = await bcrypt.compare(password, user.password);
 
         if (!passwordsMatch) {
-          throw new Error('errors.wrongPassword');
+          throw new Error('Nieprawidłowe dane logowania');
         }
 
         return {

@@ -1,7 +1,6 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useTranslations } from 'next-intl';
 import { signIn } from 'next-auth/react';
 import { useFormik } from 'formik';
 
@@ -10,7 +9,6 @@ import { FRONTEND_ROUTES } from '@/lib/navigation/routes.frontend';
 import { useToast } from '@/components/ui/use-toast';
 
 export const useSignIn = () => {
-  const t = useTranslations('auth.signIn');
   const { toast } = useToast();
   const router = useRouter();
 
@@ -31,7 +29,7 @@ export const useSignIn = () => {
       } catch (error) {
         if (error instanceof Error) {
           toast({
-            title: t(error.message),
+            title: error.message,
             variant: 'destructive',
           });
         }

@@ -2,10 +2,10 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { useTranslations } from 'next-intl';
 
 import { IMAGE_ACCEPTED_FORMATS } from '@/app/[locale]/dashboard/_components/constants';
 import { FileUploaderProps } from './types';
+import { uploaderInfo } from './constants';
 import { cn } from '@/lib/utils';
 
 export const FileUploader = ({
@@ -19,7 +19,6 @@ export const FileUploader = ({
   renderPreview,
 }: FileUploaderProps) => {
   const [preview, setPreview] = useState<File[] | null>(value);
-  const t = useTranslations(`general.pictureUploader.${type}.${mode}`);
 
   useEffect(() => {
     setPreview(value);
@@ -84,8 +83,8 @@ export const FileUploader = ({
       <input id={name} {...getInputProps()} />
       <div className="flex flex-col gap-6">
         <div className="flex select-none flex-col items-center gap-1">
-          <p className="font-medium">{t('title')}</p>
-          <p className="text-muted-foreground">{t('description')}</p>
+          <p className="font-medium">{uploaderInfo[type][mode].title}</p>
+          <p className="text-muted-foreground">{uploaderInfo[type][mode].description}</p>
         </div>
         {preview && renderPreview && renderPreview(preview, setPreview, onPreviewFileDelete, onUpdateFile)}
       </div>

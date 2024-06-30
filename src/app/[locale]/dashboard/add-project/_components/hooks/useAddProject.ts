@@ -1,6 +1,5 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
 import { useFormik } from 'formik';
 
 import { ProjectFields, projectSchema } from '../../../_components';
@@ -8,8 +7,6 @@ import { addProject } from '../actions/addProject.action';
 import { useToast } from '@/components/ui/use-toast';
 
 export const useAddProject = (initialValues?: Partial<ProjectFields>) => {
-  const t = useTranslations('dashboard.project');
-
   const { toast } = useToast();
 
   const formik = useFormik<ProjectFields>({
@@ -50,7 +47,7 @@ export const useAddProject = (initialValues?: Partial<ProjectFields>) => {
 
       if (!res.ok) {
         toast({
-          title: t(res.error),
+          title: res.error,
           variant: 'destructive',
         });
         return;
@@ -59,7 +56,7 @@ export const useAddProject = (initialValues?: Partial<ProjectFields>) => {
       if (res.ok) {
         resetForm();
         toast({
-          title: t('toast.projectAddedSuccess'),
+          title: 'Utworzono nowy projekt',
         });
         return;
       }

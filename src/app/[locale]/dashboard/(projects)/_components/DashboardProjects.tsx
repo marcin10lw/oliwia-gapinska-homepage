@@ -1,13 +1,11 @@
 import Image from 'next/image';
 
 import { handleNoSessionRedirect } from '@/lib/handleProtectedRoutes';
-import { db } from '@/lib/prisma';
-import { getTranslations } from 'next-intl/server';
 import { ProjectDropdown } from './ProjectDropdown';
+import { db } from '@/lib/prisma';
 
 export const DashboardProjects = async () => {
   const session = await handleNoSessionRedirect();
-  const t = await getTranslations('dashboard.projects');
 
   const projects = await db.project.findMany({
     where: {
@@ -26,7 +24,7 @@ export const DashboardProjects = async () => {
   if (projects.length === 0) {
     return (
       <div className="flex flex-col items-center gap-3 py-12">
-        <h2 className="mb-0 text-2xl text-muted-foreground">{t('emptyListText')}</h2>
+        <h2 className="mb-0 text-2xl text-muted-foreground">Nie masz jeszcze żadnego projektu</h2>
       </div>
     );
   }

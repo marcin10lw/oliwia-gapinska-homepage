@@ -1,6 +1,5 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 
 import { FRONTEND_ROUTES } from '@/lib/navigation/routes.frontend';
@@ -8,7 +7,6 @@ import { usePathname } from '@/lib/navigation';
 import { cn } from '@/lib/utils';
 
 export const DashboardNavigation = () => {
-  const t = useTranslations();
   const pathname = usePathname();
 
   return (
@@ -19,7 +17,7 @@ export const DashboardNavigation = () => {
           'underline underline-offset-2': pathname === FRONTEND_ROUTES.dashboardProjects,
         })}
       >
-        {t('dashboard.projects.linkText')}
+        projekty
       </Link>
       <Link
         href={FRONTEND_ROUTES.dashboardCategories}
@@ -27,7 +25,7 @@ export const DashboardNavigation = () => {
           'underline underline-offset-2': pathname === FRONTEND_ROUTES.dashboardCategories,
         })}
       >
-        {t('dashboard.categories.linkText')}
+        kategorie
       </Link>
     </nav>
   );
