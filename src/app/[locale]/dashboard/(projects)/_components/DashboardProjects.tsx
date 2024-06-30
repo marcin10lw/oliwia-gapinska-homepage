@@ -2,24 +2,12 @@ import Image from 'next/image';
 
 import { handleNoSessionRedirect } from '@/lib/handleProtectedRoutes';
 import { ProjectDropdown } from './ProjectDropdown';
-import { db } from '@/lib/prisma';
+import { getDashboardProjects } from './utils';
 
 export const DashboardProjects = async () => {
   const session = await handleNoSessionRedirect();
 
-  const projects = await db.project.findMany({
-    where: {
-      userId: session.user.id,
-    },
-    include: {
-      previewImage: true,
-      translations: {
-        include: {
-          language: true,
-        },
-      },
-    },
-  });
+  const projects = await getDashboardProjects(session.user.id);
 
   if (projects.length === 0) {
     return (
@@ -63,7 +51,7 @@ export const DashboardProjects = async () => {
                         </li>
                       ))}
                     </div>
-                    <ProjectDropdown projectId={project.id} />
+                    <ProjectDropdown project={project} />
                   </div>
 
                   <h2 className="mb-0 mt-4 text-2xl">{!!projectTranslation ? projectTranslation.title : ''}</h2>

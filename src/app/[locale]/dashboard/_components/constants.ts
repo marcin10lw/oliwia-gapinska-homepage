@@ -3,3 +3,6 @@ export const IMAGE_ACCEPTED_FORMATS = ['.jpg', '.png', '.jpeg', '.webp'];
 
 export const VIDEO_MAX_SIZE = 52_428_800;
 export const VIDEO_ACCEPTED_FORMATS = ['.mp4'];
+
+export const ADD_PROJECT_LANG_PARAM_NAME = 'lang';
+export const PROJECT_ID_PARAM_NAME = 'projectId';

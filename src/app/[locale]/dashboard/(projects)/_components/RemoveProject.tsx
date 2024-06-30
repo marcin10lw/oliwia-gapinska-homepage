@@ -37,16 +37,15 @@ export const RemoveProject = ({ projectId }: { projectId: number }) => {
   return (
     <AlertDialog open={alertOpen} onOpenChange={setAlertOpen}>
       <AlertDialogTrigger asChild>
-        <Button variant="destructive" className="h-auto px-2 py-1.5">
-          Remove project
+        <Button variant="destructive" className="h-auto w-full px-2 py-1.5">
+          Usuń projekt
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle className="mb-0">Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogTitle className="mb-0">Czy na pewno chcesz usunąć projekt?</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete your account and remove your data from our
-            servers.
+            Usunięcie projektu jest nieodwracalne. Utracisz również wszystkie zdjęcia i filmy związane z projektem.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

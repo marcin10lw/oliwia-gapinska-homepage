@@ -8,16 +8,17 @@ interface SelectProps {
   label: string;
   options: SelectOption[];
   value?: string;
+  disabled?: boolean;
   onOptionChange: (value: string) => void;
 }
 
-export const LabeledSelect = ({ label, options, value, onOptionChange }: SelectProps) => {
+export const LabeledSelect = ({ label, options, value, disabled, onOptionChange }: SelectProps) => {
   return (
     <div className="flex flex-col items-start">
       <Label htmlFor={label} className="mb-2.5 ml-[1px] text-xs uppercase">
         {label}
       </Label>
-      <Select value={value} onValueChange={onOptionChange}>
+      <Select value={value} onValueChange={onOptionChange} disabled={disabled}>
         <SelectTrigger className="relative w-full" id={label}>
           <SelectValue placeholder={label} />
         </SelectTrigger>

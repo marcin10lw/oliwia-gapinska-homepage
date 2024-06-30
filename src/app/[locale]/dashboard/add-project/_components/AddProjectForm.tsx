@@ -5,13 +5,18 @@ import { Trash } from 'lucide-react';
 
 import { ImagePreviewCropper } from '@/components/ImagePreviewCropper';
 import { LabeledFileUploader } from '@/components/LabeledFileUploader';
-import { VIDEO_ACCEPTED_FORMATS } from '../../_components/constants';
+import {
+  ADD_PROJECT_LANG_PARAM_NAME,
+  PROJECT_ID_PARAM_NAME,
+  VIDEO_ACCEPTED_FORMATS,
+} from '../../_components/constants';
 import { LabeledSelect } from '@/components/LabeledSelect';
 import { LabeledInput } from '@/components/LabeledInput';
 import { Separator } from '@/components/ui/separator';
 import { useAddProject } from './hooks/useAddProject';
 import { Button } from '@/components/ui/button';
 import { Editor } from '../../_components';
+import { useQueryParams } from '@/hooks/useQueryParams';
 
 interface AddProjectFormProps {
   categories: CategoryTranslation[];
@@ -26,6 +31,9 @@ export const AddProjectForm = ({
   initialLanguageId,
   initialCategoryId,
 }: AddProjectFormProps) => {
+  const { queryValue: langQuery } = useQueryParams(ADD_PROJECT_LANG_PARAM_NAME);
+  const { queryValue: projectIdQuery } = useQueryParams(PROJECT_ID_PARAM_NAME);
+
   const {
     formik: { values, handleChange, handleSubmit, setFieldValue, errors, touched, isSubmitting },
   } = useAddProject({
@@ -40,13 +48,21 @@ export const AddProjectForm = ({
           label="Kategoria"
           options={categories.map((category) => ({ label: category.name, value: String(category.categoryId) }))}
           value={values.category}
-          onOptionChange={(value) => setFieldValue('category', value)}
+          onOptionChange={(value) => {
+            if (!!projectIdQuery) return;
+            setFieldValue('category', value);
+          }}
+          disabled={!!projectIdQuery}
         />
         <LabeledSelect
           label="Język"
           options={languages.map((language) => ({ label: language.locale, value: String(language.id) }))}
           value={values.language}
-          onOptionChange={(value) => setFieldValue('language', value)}
+          onOptionChange={(value) => {
+            if (!!langQuery) return;
+            setFieldValue('language', value);
+          }}
+          disabled={!!langQuery}
         />
       </div>
       <Separator className="my-10" />
