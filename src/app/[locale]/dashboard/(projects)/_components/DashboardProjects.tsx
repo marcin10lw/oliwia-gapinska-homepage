@@ -2,9 +2,12 @@ import Image from 'next/image';
 
 import { handleNoSessionRedirect } from '@/lib/handleProtectedRoutes';
 import { db } from '@/lib/prisma';
+import { getTranslations } from 'next-intl/server';
+import { ProjectDropdown } from './ProjectDropdown';
 
 export const DashboardProjects = async () => {
   const session = await handleNoSessionRedirect();
+  const t = await getTranslations('dashboard.projects');
 
   const projects = await db.project.findMany({
     where: {
@@ -12,9 +15,21 @@ export const DashboardProjects = async () => {
     },
     include: {
       previewImage: true,
-      translations: true,
+      translations: {
+        include: {
+          language: true,
+        },
+      },
     },
   });
+
+  if (projects.length === 0) {
+    return (
+      <div className="flex flex-col items-center gap-3 py-12">
+        <h2 className="mb-0 text-2xl text-muted-foreground">{t('emptyListText')}</h2>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -25,7 +40,7 @@ export const DashboardProjects = async () => {
 
           return (
             <li key={project.id}>
-              <article className="border border-muted">
+              <article className="relative border border-muted shadow-md">
                 {previewImage ? (
                   <Image
                     alt={projectTranslation.title}
@@ -39,7 +54,21 @@ export const DashboardProjects = async () => {
                 )}
 
                 <div className="p-5">
-                  <h2 className="mb-0 text-2xl">{!!projectTranslation ? projectTranslation.title : ''}</h2>
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="flex items-center gap-1">
+                      {project.translations.map(({ language }) => (
+                        <li
+                          key={language.id}
+                          className="grid size-6 place-items-center bg-black text-xs uppercase text-white"
+                        >
+                          {language.locale}
+                        </li>
+                      ))}
+                    </div>
+                    <ProjectDropdown projectId={project.id} />
+                  </div>
+
+                  <h2 className="mb-0 mt-4 text-2xl">{!!projectTranslation ? projectTranslation.title : ''}</h2>
                 </div>
               </article>
             </li>

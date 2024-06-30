@@ -178,7 +178,8 @@
     "projects": {
       "heading": "Twoje projekty",
       "linkText": "Projekty",
-      "addProjectLinkText": "Dodaj projekt"
+      "addProjectLinkText": "Dodaj projekt",
+      "emptyListText": "Nie masz jeszcze żadnego projektu"
     },
     "categories": {
       "heading": "Kategorie",

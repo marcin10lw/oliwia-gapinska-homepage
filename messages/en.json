@@ -178,7 +178,8 @@
     "projects": {
       "heading": "Your projects",
       "linkText": "Projects",
-      "addProjectLinkText": "Add project"
+      "addProjectLinkText": "Add project",
+      "emptyListText": "You don't have any project yet"
     },
     "categories": {
       "heading": "Categories",
