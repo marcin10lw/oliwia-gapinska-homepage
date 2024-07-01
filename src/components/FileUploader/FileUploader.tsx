@@ -83,8 +83,8 @@ export const FileUploader = ({
       <input id={name} {...getInputProps()} />
       <div className="flex flex-col gap-6">
         <div className="flex select-none flex-col items-center gap-1">
-          <p className="font-medium">{uploaderInfo[type][mode].title}</p>
-          <p className="text-muted-foreground">{uploaderInfo[type][mode].description}</p>
+          <p className="text-center font-medium">{uploaderInfo[type][mode].title}</p>
+          <p className="text-center text-muted-foreground">{uploaderInfo[type][mode].description}</p>
         </div>
         {preview && renderPreview && renderPreview(preview, setPreview, onPreviewFileDelete, onUpdateFile)}
       </div>
