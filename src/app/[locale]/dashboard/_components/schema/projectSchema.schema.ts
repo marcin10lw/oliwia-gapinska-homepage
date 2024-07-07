@@ -3,21 +3,25 @@ import * as yup from 'yup';
 import { IMAGE_ACCEPTED_FORMATS, IMAGE_MAX_SIZE, VIDEO_ACCEPTED_FORMATS, VIDEO_MAX_SIZE } from '../constants';
 import { getFileSchema } from '@/lib/schema/fileSchema.schema';
 
-export const projectBasicInformationSchema = yup.object().shape({
+const projectBasicInformation = {
   category: yup.string().required(),
   language: yup.string().required(),
-});
+};
 
-export const projectTranslationInformationSchema = yup.object().shape({
+export const projectBasicInformationSchema = yup.object().shape(projectBasicInformation);
+
+const projectTranslationInformation = {
   title: yup.string().trim().required('Tytuł jest wymagany'),
   description: yup.string().trim().required('Opis jest wymagany'),
   year: yup.string().trim().required('Rok jest wymagany'),
   medium: yup.string().trim().nullable(),
   dimensions: yup.string().trim().nullable(),
   duration: yup.string().trim().nullable(),
-});
+};
 
-export const projectPreviewImageSchema = yup.object().shape({
+export const projectTranslationInformationSchema = yup.object().shape(projectTranslationInformation);
+
+const projectPreviewImage = {
   previewImage: getFileSchema({
     size: { maxFileSize: IMAGE_MAX_SIZE, errorMessage: 'Maksymalny rozmiar to 5MB' },
     format: {
@@ -25,9 +29,11 @@ export const projectPreviewImageSchema = yup.object().shape({
       supportedFormats: IMAGE_ACCEPTED_FORMATS,
     },
   }).nullable(),
-});
+};
 
-export const projectImagesSchema = yup.object().shape({
+export const projectPreviewImageSchema = yup.object().shape(projectPreviewImage);
+
+const projectImages = {
   images: yup
     .array()
     .of(
@@ -40,9 +46,11 @@ export const projectImagesSchema = yup.object().shape({
       }).required(),
     )
     .nullable(),
-});
+};
 
-export const projectVideoSchema = yup.object().shape({
+export const projectImagesSchema = yup.object().shape(projectImages);
+
+const projectVideo = {
   video: getFileSchema({
     size: { maxFileSize: VIDEO_MAX_SIZE, errorMessage: 'Maksymalny rozmiar filmu to 50MB' },
     format: {
@@ -50,18 +58,14 @@ export const projectVideoSchema = yup.object().shape({
       supportedFormats: VIDEO_ACCEPTED_FORMATS,
     },
   }).nullable(),
-});
+};
+
+export const projectVideoSchema = yup.object().shape(projectVideo);
 
 export const projectSchema = yup.object().shape({
-  category: projectBasicInformationSchema.fields.category,
-  language: projectBasicInformationSchema.fields.language,
-  title: projectTranslationInformationSchema.fields.title,
-  description: projectTranslationInformationSchema.fields.description,
-  year: projectTranslationInformationSchema.fields.year,
-  medium: projectTranslationInformationSchema.fields.medium,
-  dimensions: projectTranslationInformationSchema.fields.dimensions,
-  duration: projectTranslationInformationSchema.fields.duration,
-  previewImage: projectPreviewImageSchema.fields.previewImage,
-  images: projectImagesSchema.fields.images,
-  video: projectVideoSchema.fields.video,
+  ...projectBasicInformation,
+  ...projectTranslationInformation,
+  ...projectPreviewImage,
+  ...projectImages,
+  ...projectVideo,
 });

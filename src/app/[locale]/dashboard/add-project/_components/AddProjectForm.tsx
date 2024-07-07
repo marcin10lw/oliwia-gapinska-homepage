@@ -36,7 +36,7 @@ export const AddProjectForm = ({
   return (
     <form onSubmit={handleSubmit} noValidate>
       <div>
-        <p className="mb-4 text-lg text-muted-foreground">
+        <p className="mb-5 text-lg text-muted-foreground">
           1. Wybrana kategoria dotyczy wszystkich wersji językowych projektu
         </p>
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-10">
@@ -60,7 +60,7 @@ export const AddProjectForm = ({
       </div>
       <Separator className="my-10" />
       <div>
-        <p className="mb-4 text-lg text-muted-foreground">2. Podstawowe informacje o projekcie</p>
+        <p className="mb-5 text-lg text-muted-foreground">2. Podstawowe informacje o projekcie</p>
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-10">
           <LabeledInput
             value={values.title}
@@ -116,7 +116,7 @@ export const AddProjectForm = ({
       </div>
       <Separator className="my-10" />
       <div>
-        <p className="mb-4 text-lg text-muted-foreground">3. Pliki projektu </p>
+        <p className="mb-5 text-lg text-muted-foreground">3. Pliki projektu </p>
         <div className="grid gap-5 lg:gap-10">
           <LabeledFileUploader
             label="Zdjęcie podglądowe"
