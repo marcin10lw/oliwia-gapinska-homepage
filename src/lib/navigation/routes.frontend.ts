@@ -7,6 +7,7 @@ export const FRONTEND_ROUTES = {
   dashboard: '/dashboard',
   dashboardProjects: '/dashboard',
   dashboardAddProject: '/dashboard/add-project',
-  dashboardAddProjectTranslation: '/dashboard/add-project/translation/:projectId',
+  dashboardAddProjectTranslation: '/dashboard/add-project/translation/:projectUid',
   dashboardCategories: '/dashboard/categories',
+  dashboardEditProject: '/dashboard/edit-project/:projectUid/:projectLocale',
 };

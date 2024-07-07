@@ -2,10 +2,10 @@
 
 import { db } from '@/lib/prisma';
 
-export const getExistingProject = async (userId: number, projectId: number) => {
+export const getExistingProject = async (userId: number, projectUid: string) => {
   return await db.project.findUnique({
     where: {
-      id: projectId,
+      uid: projectUid,
       userId,
     },
     include: {

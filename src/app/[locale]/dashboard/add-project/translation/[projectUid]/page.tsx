@@ -9,19 +9,19 @@ import { locales } from '@/lib/constants';
 import { db } from '@/lib/prisma';
 
 const page = async ({
-  params: { projectId },
+  params: { projectUid },
   searchParams: { lang },
 }: {
-  params: { projectId: string };
+  params: { projectUid: string };
   searchParams: { [ADD_PROJECT_LANG_PARAM_NAME]?: string };
 }) => {
-  if (!lang || !locales.includes(lang) || !projectId || isNaN(Number(projectId))) {
+  if (!lang || !locales.includes(lang) || !projectUid) {
     redirect(FRONTEND_ROUTES.dashboardProjects);
   }
 
   const session = await handleNoSessionRedirect();
 
-  const existingProject = await getExistingProject(session.user.id, Number(projectId));
+  const existingProject = await getExistingProject(session.user.id, projectUid);
 
   const language = await db.language.findFirst({
     where: {

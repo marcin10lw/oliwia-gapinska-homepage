@@ -14,7 +14,7 @@ export const DashboardNavigation = () => {
       <Link
         href={FRONTEND_ROUTES.dashboardProjects}
         className={cn('uppercase hover:underline', {
-          'underline underline-offset-2': pathname === FRONTEND_ROUTES.dashboardProjects,
+          'underline underline-offset-2': pathname.startsWith(FRONTEND_ROUTES.dashboardProjects),
         })}
       >
         projekty

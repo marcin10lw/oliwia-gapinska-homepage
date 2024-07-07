@@ -40,6 +40,6 @@ export const addProjectTranslation = async (formFields: AddProjectTranslationFie
     revalidatePath(FRONTEND_ROUTES.category);
     return { ok: true };
   } catch (error) {
-    return { ok: false, error: 'Coś poszło nie tak. Skontaktuj się z Marcinem ;)' };
+    return { ok: false, error: 'Coś poszło nie tak...' };
   }
 };

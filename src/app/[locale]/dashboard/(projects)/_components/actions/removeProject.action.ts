@@ -56,6 +56,6 @@ export const removeProject = async (projectId: number) => {
     revalidatePath(FRONTEND_ROUTES.dashboard);
     return { ok: true };
   } catch (error) {
-    return { ok: false, error: 'Coś poszło nie tak. Skontaktuj się z Marcinem ;)' };
+    return { ok: false, error: 'Coś poszło nie tak...' };
   }
 };
