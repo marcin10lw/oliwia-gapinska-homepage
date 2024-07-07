@@ -67,6 +67,14 @@ export const ProjectDropdown = ({ project }: { project: DashboardProject }) => {
       <DropdownMenuContent className="flex flex-col gap-1" align="end">
         {getCreationDropdownItems()}
         {getEditDropdownItems()}
+        <DropdownMenuItem className="p-0">
+          <Link
+            className="px-2 py-1.5"
+            href={FRONTEND_ROUTES.dashboardChangeProjectCategory.replace(':projectUid', project.uid)}
+          >
+            Zmień kategorię
+          </Link>
+        </DropdownMenuItem>
         <div>
           <RemoveProject projectId={project.id} />
         </div>

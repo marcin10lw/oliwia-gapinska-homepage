@@ -2,24 +2,25 @@
 
 import { useFormik } from 'formik';
 
-import { ProjectBasicInformationFields, projectBasicInformationSchema } from '@/app/[locale]/dashboard/_components';
+import {
+  ProjectTranslationInformationFields,
+  projectTranslationInformationSchema,
+} from '@/app/[locale]/dashboard/_components';
+import { useToast } from '@/components/ui/use-toast';
 import { addProjectBasicInformation } from '../actions/addProjectBasicInformation.action';
 import { EditedProjectBasicInformation } from '../types';
-import { useToast } from '@/components/ui/use-toast';
 
 export const useProjectBasicInformation = (
-  initialValues: ProjectBasicInformationFields,
+  initialValues: ProjectTranslationInformationFields,
   projectTranslation: EditedProjectBasicInformation,
 ) => {
   const { toast } = useToast();
 
-  const formik = useFormik<ProjectBasicInformationFields>({
+  const formik = useFormik<ProjectTranslationInformationFields>({
     initialValues,
-    validationSchema: projectBasicInformationSchema,
+    validationSchema: projectTranslationInformationSchema,
     onSubmit: async (values) => {
       const formData = new FormData();
-      formData.append('category', values.category);
-      formData.append('language', values.language);
       formData.append('title', values.title);
       formData.append('year', values.year);
       values.medium && formData.append('medium', values.medium);

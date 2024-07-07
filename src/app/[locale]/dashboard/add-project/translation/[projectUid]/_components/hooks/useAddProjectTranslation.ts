@@ -2,21 +2,28 @@
 
 import { useFormik } from 'formik';
 
-import { AddProjectTranslationFields, addProjectTranslationSchema } from '../schema/addProjectTranslationSchema.schema';
 import { ADD_PROJECT_LANG_PARAM_NAME } from '@/app/[locale]/dashboard/_components/constants';
 import { addProjectTranslation } from '../actions/addProjectTranslation.action';
 import { useQueryParams } from '@/hooks/useQueryParams';
 import { useToast } from '@/components/ui/use-toast';
+import {
+  ProjectTranslationInformationFields,
+  projectTranslationInformationSchema,
+} from '@/app/[locale]/dashboard/_components';
 
-export const useAddProjectTranslation = (initialValues: AddProjectTranslationFields, projectId: number) => {
+export const useAddProjectTranslation = (
+  initialValues: ProjectTranslationInformationFields,
+  projectId: number,
+  languageId: number,
+) => {
   const { queryValue: langQuery } = useQueryParams(ADD_PROJECT_LANG_PARAM_NAME);
   const { toast } = useToast();
 
-  const formik = useFormik<AddProjectTranslationFields>({
+  const formik = useFormik<ProjectTranslationInformationFields>({
     initialValues: initialValues,
-    validationSchema: addProjectTranslationSchema,
+    validationSchema: projectTranslationInformationSchema,
     onSubmit: async (values, { resetForm }) => {
-      const res = await addProjectTranslation(values, projectId);
+      const res = await addProjectTranslation(values, projectId, languageId);
 
       if (!res.ok) {
         toast({

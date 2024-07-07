@@ -10,4 +10,5 @@ export const FRONTEND_ROUTES = {
   dashboardAddProjectTranslation: '/dashboard/add-project/translation/:projectUid',
   dashboardCategories: '/dashboard/categories',
   dashboardEditProject: '/dashboard/edit-project/:projectUid/:projectLocale',
+  dashboardChangeProjectCategory: '/dashboard/change-project-category/:projectUid',
 };

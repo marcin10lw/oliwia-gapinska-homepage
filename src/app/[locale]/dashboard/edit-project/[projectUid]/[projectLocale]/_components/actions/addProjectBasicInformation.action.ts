@@ -1,11 +1,14 @@
 'use server';
 
-import { ProjectBasicInformationFields, projectBasicInformationSchema } from '@/app/[locale]/dashboard/_components';
-import { FRONTEND_ROUTES } from '@/lib/navigation/routes.frontend';
+import {
+  ProjectTranslationInformationFields,
+  projectTranslationInformationSchema,
+} from '@/app/[locale]/dashboard/_components';
 import { checkExistingUser } from '@/lib/checkExistingUser';
-import { revalidatePath } from 'next/cache';
-import { validateForm } from '@/lib/utils';
+import { FRONTEND_ROUTES } from '@/lib/navigation/routes.frontend';
 import { db } from '@/lib/prisma';
+import { validateForm } from '@/lib/utils';
+import { revalidatePath } from 'next/cache';
 
 export const addProjectBasicInformation = async (formData: FormData, projectTranslationId: number) => {
   const formFields = {
@@ -17,9 +20,12 @@ export const addProjectBasicInformation = async (formData: FormData, projectTran
     dimensions: formData.get('dimensions'),
     duration: formData.get('duration'),
     description: formData.get('description'),
-  } as ProjectBasicInformationFields;
+  } as ProjectTranslationInformationFields;
 
-  const validationRes = await validateForm<ProjectBasicInformationFields>(projectBasicInformationSchema, formFields);
+  const validationRes = await validateForm<ProjectTranslationInformationFields>(
+    projectTranslationInformationSchema,
+    formFields,
+  );
 
   if ('error' in validationRes) {
     return { error: validationRes.error.errors[0] };
@@ -41,11 +47,6 @@ export const addProjectBasicInformation = async (formData: FormData, projectTran
         id: projectTranslationId,
       },
       data: {
-        project: {
-          update: {
-            categoryId: Number(validatedFields.category),
-          },
-        },
         title: validatedFields.title,
         year: validatedFields.year,
         medium: validatedFields.medium,

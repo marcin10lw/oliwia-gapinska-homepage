@@ -1,9 +1,10 @@
 import { redirect } from 'next/navigation';
 
-import { AddProjectTranslationFields, AddProjectTranslationForm } from './_components';
 import { ADD_PROJECT_LANG_PARAM_NAME } from '../../../_components/constants';
+import { ProjectTranslationInformationFields } from '../../../_components';
 import { handleNoSessionRedirect } from '@/lib/handleProtectedRoutes';
 import { FRONTEND_ROUTES } from '@/lib/navigation/routes.frontend';
+import { AddProjectTranslationForm } from './_components';
 import { getExistingProject } from './_components/utils';
 import { locales } from '@/lib/constants';
 import { db } from '@/lib/prisma';
@@ -35,23 +36,26 @@ const page = async ({
 
   const projectTranslation = existingProject.translations[0];
 
-  const initialValues: AddProjectTranslationFields = {
+  const initialValues: ProjectTranslationInformationFields = {
     title: projectTranslation.title ?? '',
     year: projectTranslation.year ?? '',
     medium: projectTranslation.medium ?? '',
     dimensions: projectTranslation.dimensions ?? '',
     duration: projectTranslation.duration ?? '',
     description: projectTranslation.description ?? '',
-    language: String(language.id),
   };
 
   return (
     <div>
       <h2 className="mb-10 text-4xl">
-        Dodaj projekt <span className="font-semibold">{existingProject.translations[0].title}</span> w wersji:{' '}
-        <span className="uppercase">{lang}</span>
+        Dodaj projekt &quot;<span className="font-medium">{existingProject.translations[0].title}</span>&quot; w wersji:{' '}
+        <span className="font-medium uppercase">{lang}</span>
       </h2>
-      <AddProjectTranslationForm initialValues={initialValues} projectId={existingProject.id} />
+      <AddProjectTranslationForm
+        initialValues={initialValues}
+        projectId={existingProject.id}
+        languageId={language.id}
+      />
     </div>
   );
 };

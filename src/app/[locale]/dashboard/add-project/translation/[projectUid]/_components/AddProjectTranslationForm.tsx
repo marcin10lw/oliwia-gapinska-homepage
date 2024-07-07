@@ -1,9 +1,8 @@
 'use client';
 
 import { ADD_PROJECT_LANG_PARAM_NAME } from '@/app/[locale]/dashboard/_components/constants';
-import { AddProjectTranslationFields } from './schema/addProjectTranslationSchema.schema';
 import { useAddProjectTranslation } from './hooks/useAddProjectTranslation';
-import { Editor } from '@/app/[locale]/dashboard/_components';
+import { Editor, ProjectTranslationInformationFields } from '@/app/[locale]/dashboard/_components';
 import { LabeledInput } from '@/components/LabeledInput';
 import { useQueryParams } from '@/hooks/useQueryParams';
 import { Button } from '@/components/ui/button';
@@ -11,15 +10,17 @@ import { Button } from '@/components/ui/button';
 export const AddProjectTranslationForm = ({
   initialValues,
   projectId,
+  languageId,
 }: {
-  initialValues: AddProjectTranslationFields;
+  initialValues: ProjectTranslationInformationFields;
   projectId: number;
+  languageId: number;
 }) => {
   const { queryValue: langQuery } = useQueryParams(ADD_PROJECT_LANG_PARAM_NAME);
   const {
     formik: { values, handleChange, handleSubmit, setFieldValue, errors, touched, isSubmitting },
-  } = useAddProjectTranslation(initialValues, projectId);
-  
+  } = useAddProjectTranslation(initialValues, projectId, languageId);
+
   return (
     <form onSubmit={handleSubmit} noValidate>
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-10">

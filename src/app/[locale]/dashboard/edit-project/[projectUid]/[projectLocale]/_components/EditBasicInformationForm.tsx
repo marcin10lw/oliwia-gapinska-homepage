@@ -1,22 +1,16 @@
 'use client';
 
-import { Editor, ProjectBasicInformationFields } from '@/app/[locale]/dashboard/_components';
-import { useProjectBasicInformation } from './hooks/useProjectBasicInformation.hook';
-import { CategoryTranslation, Language } from '@prisma/client';
-import { LabeledSelect } from '@/components/LabeledSelect';
+import { Editor, ProjectTranslationInformationFields } from '@/app/[locale]/dashboard/_components';
 import { LabeledInput } from '@/components/LabeledInput';
 import { Button } from '@/components/ui/button';
+import { useProjectBasicInformation } from './hooks/useProjectBasicInformation.hook';
 import { EditedProjectBasicInformation } from './types';
 
 export const EditBasicInformationForm = ({
-  categories,
-  languages,
   initialValues,
   projectTranslation,
 }: {
-  categories: CategoryTranslation[];
-  languages: Language[];
-  initialValues: ProjectBasicInformationFields;
+  initialValues: ProjectTranslationInformationFields;
   projectTranslation: EditedProjectBasicInformation;
 }) => {
   const {
@@ -26,21 +20,6 @@ export const EditBasicInformationForm = ({
   return (
     <form onSubmit={handleSubmit} noValidate>
       <div className="grid gap-5 lg:grid-cols-2">
-        <LabeledSelect
-          label="Kategoria"
-          options={categories.map((category) => ({ label: category.name, value: String(category.categoryId) }))}
-          value={values.category}
-          onOptionChange={(value) => {
-            setFieldValue('category', value);
-          }}
-        />
-        <LabeledSelect
-          label="Język"
-          options={languages.map((language) => ({ label: language.locale, value: String(language.id) }))}
-          value={values.language}
-          onOptionChange={() => {}}
-          disabled
-        />
         <LabeledInput
           value={values.title}
           onChange={handleChange}

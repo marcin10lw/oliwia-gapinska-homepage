@@ -35,77 +35,89 @@ export const AddProjectForm = ({
 
   return (
     <form onSubmit={handleSubmit} noValidate>
-      <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-10">
-        <LabeledSelect
-          label="Kategoria"
-          options={categories.map((category) => ({ label: category.name, value: String(category.categoryId) }))}
-          value={values.category}
-          onOptionChange={(value) => {
-            setFieldValue('category', value);
-          }}
-        />
-        <LabeledSelect
-          label="Język"
-          options={languages.map((language) => ({ label: language.locale, value: String(language.id) }))}
-          value={values.language}
-          onOptionChange={(value) => {
-            setFieldValue('language', value);
-          }}
-        />
-      </div>
-      <Separator className="my-10" />
-      <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-10">
-        <LabeledInput
-          value={values.title}
-          onChange={handleChange}
-          error={errors.title && touched.title ? errors.title : undefined}
-          label="Tytuł"
-          placeholder="Tytuł"
-          name="title"
-        />
-        <LabeledInput
-          value={values.year}
-          onChange={handleChange}
-          error={errors.year && touched.year ? errors.year : undefined}
-          label="Rok"
-          placeholder="Rok"
-          name="year"
-          type="number"
-        />
-        <LabeledInput
-          value={values.medium ?? undefined}
-          onChange={handleChange}
-          error={errors.medium && touched.medium ? errors.medium : undefined}
-          label="Medium"
-          placeholder="Medium"
-          name="medium"
-        />
-        <LabeledInput
-          value={values.dimensions ?? undefined}
-          onChange={handleChange}
-          error={errors.dimensions && touched.dimensions ? errors.dimensions : undefined}
-          label="Wymiary"
-          placeholder="Wymiary"
-          name="dimensions"
-        />
-        <LabeledInput
-          value={values.duration ?? undefined}
-          onChange={handleChange}
-          error={errors.duration && touched.duration ? errors.duration : undefined}
-          label="Czas trwania"
-          placeholder="Czas trwania"
-          name="duration"
-        />
-        <div className="lg:col-span-2">
-          <Editor
-            label="Opis"
-            triggerLabel="Podgląd"
-            value={values.description}
-            onChange={(value) => setFieldValue('description', value)}
-            error={errors.description && touched.description ? errors.description : undefined}
+      <div>
+        <p className="mb-4 text-lg text-muted-foreground">
+          1. Wybrana kategoria dotyczy wszystkich wersji językowych projektu
+        </p>
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-10">
+          <LabeledSelect
+            label="Kategoria"
+            options={categories.map((category) => ({ label: category.name, value: String(category.categoryId) }))}
+            value={values.category}
+            onOptionChange={(value) => {
+              setFieldValue('category', value);
+            }}
+          />
+          <LabeledSelect
+            label="Język"
+            options={languages.map((language) => ({ label: language.locale, value: String(language.id) }))}
+            value={values.language}
+            onOptionChange={(value) => {
+              setFieldValue('language', value);
+            }}
           />
         </div>
-        <div className="lg:col-span-2">
+      </div>
+      <Separator className="my-10" />
+      <div>
+        <p className="mb-4 text-lg text-muted-foreground">2. Podstawowe informacje o projekcie</p>
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-10">
+          <LabeledInput
+            value={values.title}
+            onChange={handleChange}
+            error={errors.title && touched.title ? errors.title : undefined}
+            label="Tytuł"
+            placeholder="Tytuł"
+            name="title"
+          />
+          <LabeledInput
+            value={values.year}
+            onChange={handleChange}
+            error={errors.year && touched.year ? errors.year : undefined}
+            label="Rok"
+            placeholder="Rok"
+            name="year"
+            type="number"
+          />
+          <LabeledInput
+            value={values.medium ?? undefined}
+            onChange={handleChange}
+            error={errors.medium && touched.medium ? errors.medium : undefined}
+            label="Medium"
+            placeholder="Medium"
+            name="medium"
+          />
+          <LabeledInput
+            value={values.dimensions ?? undefined}
+            onChange={handleChange}
+            error={errors.dimensions && touched.dimensions ? errors.dimensions : undefined}
+            label="Wymiary"
+            placeholder="Wymiary"
+            name="dimensions"
+          />
+          <LabeledInput
+            value={values.duration ?? undefined}
+            onChange={handleChange}
+            error={errors.duration && touched.duration ? errors.duration : undefined}
+            label="Czas trwania"
+            placeholder="Czas trwania"
+            name="duration"
+          />
+          <div className="lg:col-span-2">
+            <Editor
+              label="Opis"
+              triggerLabel="Podgląd"
+              value={values.description}
+              onChange={(value) => setFieldValue('description', value)}
+              error={errors.description && touched.description ? errors.description : undefined}
+            />
+          </div>
+        </div>
+      </div>
+      <Separator className="my-10" />
+      <div>
+        <p className="mb-4 text-lg text-muted-foreground">3. Pliki projektu </p>
+        <div className="grid gap-5 lg:gap-10">
           <LabeledFileUploader
             label="Zdjęcie podglądowe"
             name="preview-image"
@@ -139,8 +151,6 @@ export const AddProjectForm = ({
               );
             }}
           />
-        </div>
-        <div className="lg:col-span-2">
           <LabeledFileUploader
             label="Zdjęcia"
             name="images"
@@ -177,9 +187,7 @@ export const AddProjectForm = ({
               );
             }}
           />
-        </div>
 
-        <div className="lg:col-span-2">
           <LabeledFileUploader
             label="Wideo"
             name="video"

@@ -1,10 +1,9 @@
 import { redirect } from 'next/navigation';
 
-import { ProjectBasicInformationFields } from '../../../_components';
-import { FRONTEND_ROUTES } from '@/lib/navigation/routes.frontend';
-import { EditBasicInformationForm, getToEditProject } from './_components';
 import { locales } from '@/lib/constants';
-import { db } from '@/lib/prisma';
+import { FRONTEND_ROUTES } from '@/lib/navigation/routes.frontend';
+import { ProjectTranslationInformationFields } from '../../../_components';
+import { EditBasicInformationForm, getToEditProject } from './_components';
 
 const page = async ({
   params: { projectUid, projectLocale },
@@ -15,25 +14,13 @@ const page = async ({
     redirect(FRONTEND_ROUTES.dashboardProjects);
   }
 
-  const categories = await db.categoryTranslation.findMany({
-    where: {
-      language: {
-        locale: 'pl',
-      },
-    },
-  });
-
-  const languages = await db.language.findMany();
-
   const projectTranslation = await getToEditProject(projectUid, projectLocale);
 
   if (!projectTranslation) {
     return <h1 className="text-2xl">Nie udało się znaleźć projektu</h1>;
   }
 
-  const initialValues: ProjectBasicInformationFields = {
-    category: String(projectTranslation.project.categoryId),
-    language: String(languages.find((language) => language.locale === projectLocale)?.id),
+  const initialValues: ProjectTranslationInformationFields = {
     title: projectTranslation.title,
     year: projectTranslation.year,
     medium: projectTranslation.medium,
@@ -43,12 +30,13 @@ const page = async ({
   };
 
   return (
-    <EditBasicInformationForm
-      categories={categories}
-      languages={languages}
-      initialValues={initialValues}
-      projectTranslation={projectTranslation}
-    />
+    <div>
+      <h2 className="mb-10 text-4xl">
+        Edytujesz projekt &quot;<span className="font-medium">{projectTranslation.title}</span>&quot; w języku:{' '}
+        <span className="font-medium uppercase">{projectLocale}</span>
+      </h2>
+      <EditBasicInformationForm initialValues={initialValues} projectTranslation={projectTranslation} />
+    </div>
   );
 };
 
