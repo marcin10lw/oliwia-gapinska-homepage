@@ -37,6 +37,7 @@ export const Categories = async () => {
                 <Link
                   href={FRONTEND_ROUTES.category.replace(':categoryUid', categoryTranslation.category.uid)}
                   className="text-2xl capitalize underline transition-colors hover:text-muted-foreground"
+                  prefetch
                 >
                   {categoryTranslation.name}
                 </Link>
