@@ -2,6 +2,7 @@
 
 import { revalidatePath } from 'next/cache';
 
+import { BUCKET_IMAGES_PREFIX, BUCKET_PREVIEW_IMAGE_PREFIX, BUCKET_VIDEO_PREFIX } from '../../../_components/constants';
 import { getPublicUrlOfFile, removePublicFile } from '@/lib/fileUpload';
 import { ProjectFields, projectSchema } from '../../../_components';
 import { FRONTEND_ROUTES } from '@/lib/navigation/routes.frontend';
@@ -46,16 +47,16 @@ export const addProject = async (formData: FormData) => {
   let imagesUploadData: FileUploadResponse[] = [];
 
   if (!!validatedFields.previewImage) {
-    previewImageUploadData = await getPublicUrlOfFile(validatedFields.previewImage, '/projects/previews');
+    previewImageUploadData = await getPublicUrlOfFile(validatedFields.previewImage, BUCKET_PREVIEW_IMAGE_PREFIX);
   }
 
   if (!!validatedFields.video) {
-    videoUploadData = await getPublicUrlOfFile(validatedFields.video, '/projects/videos', 'videos');
+    videoUploadData = await getPublicUrlOfFile(validatedFields.video, BUCKET_VIDEO_PREFIX, 'videos');
   }
 
   if (!!validatedFields.images) {
     for (const image of validatedFields.images) {
-      const imageUploadData = await getPublicUrlOfFile(image, '/projects/images');
+      const imageUploadData = await getPublicUrlOfFile(image, BUCKET_IMAGES_PREFIX);
       if (imageUploadData) {
         imagesUploadData.push(imageUploadData);
       }

@@ -6,7 +6,7 @@ import { Link } from '@/lib/navigation';
 const Page = async () => {
   return (
     <div>
-      <div className="mb-10 flex flex-wrap items-center gap-5">
+      <div className="mb-10 flex flex-wrap items-center gap-5 lg:mb-14">
         <h1 className="text-4xl">Twoje projekty</h1>
         <Link href={FRONTEND_ROUTES.dashboardAddProject} className={buttonVariants({ size: 'sm', className: 'mt-1' })}>
           Dodaj projekt

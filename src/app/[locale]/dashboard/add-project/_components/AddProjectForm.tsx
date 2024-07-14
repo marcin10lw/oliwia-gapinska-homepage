@@ -116,7 +116,7 @@ export const AddProjectForm = ({
       </div>
       <Separator className="my-10" />
       <div>
-        <p className="mb-5 text-lg text-muted-foreground">3. Pliki projektu </p>
+        <p className="mb-5 text-lg text-muted-foreground">3. Pliki projektu</p>
         <div className="grid gap-5 lg:gap-10">
           <LabeledFileUploader
             label="Zdjęcie podglądowe"

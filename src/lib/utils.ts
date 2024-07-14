@@ -24,3 +24,9 @@ export const dataUrlToFile = async (url: string, fileName: string, mimeType: str
 
   return new File([buffer], fileName, { type: mimeType });
 };
+
+export const getFileFromUrl = async (fileUrl: string, fileName: string): Promise<File> => {
+  const res = await fetch(fileUrl);
+  const blob = await res.blob();
+  return new File([blob], fileName, { type: blob.type });
+};
