@@ -1,9 +1,7 @@
 import { redirect } from 'next/navigation';
 
-import { EditPreviewImageForm } from './_components/EditPreviewImageForm';
+import { EditImagesForm, EditPreviewImageForm, EditVideoForm } from './_components';
 import { FRONTEND_ROUTES } from '@/lib/navigation/routes.frontend';
-import { EditImagesForm } from './_components/EditImagesForm';
-import { EditVideoForm } from './_components/EditVideoForm';
 import { db } from '@/lib/prisma';
 
 const page = async ({ params: { projectUid } }: { params: { projectUid: string } }) => {
