@@ -13,11 +13,16 @@ export const Categories = async () => {
   const t = await getTranslations('home');
   const locale = (await getLocale()) as Language['locale'];
 
-  const categories = await db.categoryTranslation.findMany({
+  const categoryTranslations = await db.categoryTranslation.findMany({
     where: {
       language: {
         locale,
       },
+    },
+    select: {
+      uid: true,
+      name: true,
+      category: { select: { uid: true } },
     },
   });
 
@@ -25,15 +30,15 @@ export const Categories = async () => {
     <PaddingWrapper>
       <Container>
         <h2>{t('categories.heading')}</h2>
-        {categories.length > 0 ? (
+        {categoryTranslations.length > 0 ? (
           <ul className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {categories.map((category) => (
-              <li key={category.id}>
+            {categoryTranslations.map((categoryTranslation) => (
+              <li key={categoryTranslation.uid}>
                 <Link
-                  href={FRONTEND_ROUTES.category.replace(':id', String(category.categoryId))}
+                  href={FRONTEND_ROUTES.category.replace(':categoryUid', categoryTranslation.category.uid)}
                   className="text-2xl capitalize underline transition-colors hover:text-muted-foreground"
                 >
-                  {category.name}
+                  {categoryTranslation.name}
                 </Link>
               </li>
             ))}

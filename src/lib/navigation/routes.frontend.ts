@@ -1,8 +1,8 @@
 export const FRONTEND_ROUTES = {
   home: '/',
   about: '/about',
-  category: '/category/:id',
-  project: '/project/:id',
+  category: '/category/:categoryUid',
+  project: '/project/:projectUid',
   signIn: '/sign-in',
   dashboard: '/dashboard',
   dashboardProjects: '/dashboard',

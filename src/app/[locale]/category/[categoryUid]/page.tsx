@@ -1,26 +1,24 @@
-import { Language } from '@prisma/client';
 import { getLocale } from 'next-intl/server';
-import { RedirectType, redirect } from 'next/navigation';
+import { Language } from '@prisma/client';
 
-import { Container } from '@/components/Container';
 import { PaddingWrapper } from '@/components/PaddingWrapper';
-import { db } from '@/lib/prisma';
+import { Container } from '@/components/Container';
 import { ProjectsList } from './_components';
+import { db } from '@/lib/prisma';
 
-const Page = async ({ params: { id } }: { params: { id?: string } }) => {
-  if (!id || isNaN(Number(id))) {
-    redirect('/', RedirectType.replace);
-  }
-
+const Page = async ({ params: { categoryUid } }: { params: { categoryUid: string } }) => {
   const locale = (await getLocale()) as Language['locale'];
 
   const categoryName = (
     await db.categoryTranslation.findFirst({
       where: {
-        categoryId: Number(id),
+        category: { uid: categoryUid },
         language: {
           locale,
         },
+      },
+      select: {
+        name: true,
       },
     })
   )?.name;
@@ -29,8 +27,8 @@ const Page = async ({ params: { id } }: { params: { id?: string } }) => {
     <main>
       <PaddingWrapper>
         <Container>
-          <h1 className="mb-7 text-4xl capitalize">{categoryName}</h1>
-          <ProjectsList categoryId={Number(id)} />
+          <h1 className="mb-10 text-4xl capitalize lg:mb-14">{categoryName}</h1>
+          <ProjectsList categoryUid={categoryUid} />
         </Container>
       </PaddingWrapper>
     </main>
