@@ -5,8 +5,11 @@ import { useFormik } from 'formik';
 import { ProjectFields, projectSchema } from '../../../_components';
 import { addProject } from '../actions/addProject.action';
 import { useToast } from '@/components/ui/use-toast';
+import { useRouter } from 'next/navigation';
+import { FRONTEND_ROUTES } from '@/lib/navigation/routes.frontend';
 
 export const useAddProject = (initialValues?: Partial<ProjectFields>) => {
+  const router = useRouter();
   const { toast } = useToast();
 
   const formik = useFormik<ProjectFields>({
@@ -58,6 +61,7 @@ export const useAddProject = (initialValues?: Partial<ProjectFields>) => {
         toast({
           title: 'Utworzono nowy projekt',
         });
+        router.push(FRONTEND_ROUTES.dashboard);
         return;
       }
     },

@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { Media } from '@prisma/client';
 import { useFormik } from 'formik';
 import { useEffect } from 'react';
@@ -7,16 +8,52 @@ import { useEffect } from 'react';
 import { ProjectImages, projectImagesSchema } from '@/app/[locale]/dashboard/_components';
 import { ImagePreviewCropper } from '@/components/ImagePreviewCropper';
 import { LabeledFileUploader } from '@/components/LabeledFileUploader';
+import { updateImages } from './actions/updateImages.action';
+import { useToast } from '@/components/ui/use-toast';
 import { Button } from '@/components/ui/button';
 import { getFileFromUrl } from '@/lib/utils';
 
-export const EditImagesForm = ({ projectImagesMedia }: { projectImagesMedia?: Media[] }) => {
-  const { values, setFieldValue, errors, isSubmitting } = useFormik<ProjectImages>({
+export const EditImagesForm = ({
+  projectImagesMedia,
+  projectUid,
+}: {
+  projectImagesMedia?: Media[];
+  projectUid: string;
+}) => {
+  const router = useRouter();
+  const { toast } = useToast();
+
+  const { values, setFieldValue, handleSubmit, errors, isSubmitting } = useFormik<ProjectImages>({
     initialValues: {
       images: [],
     },
     validationSchema: projectImagesSchema,
-    onSubmit: async () => {},
+    onSubmit: async (values) => {
+      const formData = new FormData();
+      if (values.images) {
+        values.images.forEach((image) => {
+          formData.append(`images`, image);
+        });
+      }
+
+      const res = await updateImages(formData, projectUid);
+
+      if (!res.ok) {
+        toast({
+          title: res.error,
+          variant: 'destructive',
+        });
+        return;
+      }
+
+      if (res.ok) {
+        toast({
+          title: 'Zaktualizowano zdjęcia',
+        });
+        router.refresh();
+        return;
+      }
+    },
   });
 
   useEffect(() => {
@@ -36,7 +73,7 @@ export const EditImagesForm = ({ projectImagesMedia }: { projectImagesMedia?: Me
   }, [projectImagesMedia, setFieldValue]);
 
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <LabeledFileUploader
         label="Zdjęcia"
         name="images"

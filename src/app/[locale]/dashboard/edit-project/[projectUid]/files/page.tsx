@@ -27,8 +27,8 @@ const page = async ({ params: { projectUid } }: { params: { projectUid: string }
       <h2 className="mb-10 text-4xl lg:mb-14">Edytuj pliki projektu</h2>
       <div className="grid gap-5 lg:gap-10">
         <EditPreviewImageForm previewImageMedia={project.previewImage ?? undefined} projectUid={projectUid} />
-        <EditImagesForm projectImagesMedia={project.images} />
-        <EditVideoForm videoMedia={project.video ?? undefined} />
+        <EditImagesForm projectImagesMedia={project.images} projectUid={projectUid} />
+        <EditVideoForm videoMedia={project.video ?? undefined} projectUid={projectUid} />
       </div>
     </div>
   );

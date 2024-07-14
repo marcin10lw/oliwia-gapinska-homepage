@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 
 import { IMAGE_ACCEPTED_FORMATS } from '@/app/[locale]/dashboard/_components/constants';
@@ -41,36 +41,47 @@ export const FileUploader = ({
     [mode, onChange, preview],
   );
 
-  const onPreviewFileDelete = (name: string): File[] | undefined => {
-    const newFiles = preview?.filter((item) => item.name !== name);
+  const onPreviewFileDelete = useCallback(
+    (name: string): File[] | undefined => {
+      const newFiles = preview?.filter((item) => item.name !== name);
 
-    if (!newFiles) return;
+      if (!newFiles) return;
 
-    setPreview((prev) => {
-      if (prev) {
-        return newFiles;
-      }
-      return prev;
-    });
-    onChange(newFiles);
-  };
+      setPreview((prev) => {
+        if (prev) {
+          return newFiles;
+        }
+        return prev;
+      });
+      onChange(newFiles);
+    },
+    [preview, onChange],
+  );
 
-  const onUpdateFile = (name: string, file: File) => {
-    if (!preview) return;
-    const newFiles = preview.map((prev) => {
-      if (prev.name === name) {
-        return file;
-      }
-      return prev;
-    });
+  const onUpdateFile = useCallback(
+    (name: string, file: File) => {
+      if (!preview) return;
+      const newFiles = preview.map((prev) => {
+        if (prev.name === name) {
+          return file;
+        }
+        return prev;
+      });
 
-    onChange(newFiles);
-  };
+      onChange(newFiles);
+    },
+    [preview, onChange],
+  );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept,
   });
+
+  const memoizedPreview = useMemo(
+    () => preview && renderPreview && renderPreview(preview, setPreview, onPreviewFileDelete, onUpdateFile),
+    [preview, renderPreview, onPreviewFileDelete, onUpdateFile],
+  );
 
   return (
     <div
@@ -86,7 +97,7 @@ export const FileUploader = ({
           <p className="text-center font-medium">{uploaderInfo[type][mode].title}</p>
           <p className="text-center text-muted-foreground">{uploaderInfo[type][mode].description}</p>
         </div>
-        {preview && renderPreview && renderPreview(preview, setPreview, onPreviewFileDelete, onUpdateFile)}
+        {memoizedPreview}
       </div>
     </div>
   );

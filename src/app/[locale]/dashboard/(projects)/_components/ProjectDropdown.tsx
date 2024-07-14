@@ -13,7 +13,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { ReactNode } from 'react';
 
 export const ProjectDropdown = ({ project }: { project: DashboardProject }) => {
   const projectTranslations = project.translations;
@@ -67,6 +66,14 @@ export const ProjectDropdown = ({ project }: { project: DashboardProject }) => {
       <DropdownMenuContent className="flex flex-col gap-1" align="end">
         {getCreationDropdownItems()}
         {getEditDropdownItems()}
+        <DropdownMenuItem className="p-0">
+          <Link
+            className="px-2 py-1.5"
+            href={FRONTEND_ROUTES.dashboardChangeProjectFiles.replace(':projectUid', project.uid)}
+          >
+            Edytuj pliki
+          </Link>
+        </DropdownMenuItem>
         <DropdownMenuItem className="p-0">
           <Link
             className="px-2 py-1.5"

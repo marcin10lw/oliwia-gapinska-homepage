@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { Media } from '@prisma/client';
 import { Trash } from 'lucide-react';
 import { useFormik } from 'formik';
@@ -8,16 +9,42 @@ import { useEffect } from 'react';
 import { ProjectVideo, projectVideoSchema } from '@/app/[locale]/dashboard/_components';
 import { VIDEO_ACCEPTED_FORMATS } from '@/app/[locale]/dashboard/_components/constants';
 import { LabeledFileUploader } from '@/components/LabeledFileUploader';
+import { updateVideo } from './actions/updateVideo.action';
+import { useToast } from '@/components/ui/use-toast';
 import { Button } from '@/components/ui/button';
 import { getFileFromUrl } from '@/lib/utils';
 
-export const EditVideoForm = ({ videoMedia }: { videoMedia?: Media }) => {
+export const EditVideoForm = ({ videoMedia, projectUid }: { videoMedia?: Media; projectUid: string }) => {
+  const { toast } = useToast();
+  const router = useRouter();
+
   const { values, setFieldValue, handleSubmit, errors, touched, isSubmitting } = useFormik<ProjectVideo>({
     initialValues: {
       video: null,
     },
     validationSchema: projectVideoSchema,
-    onSubmit: async () => {},
+    onSubmit: async (values) => {
+      const formData = new FormData();
+      values.video && formData.append('video', values.video);
+
+      const res = await updateVideo(formData, projectUid);
+
+      if (!res.ok) {
+        toast({
+          title: res.error,
+          variant: 'destructive',
+        });
+        return;
+      }
+
+      if (res.ok) {
+        toast({
+          title: `${videoMedia ? 'Zmieniono' : 'Zaktualizowano'} video`,
+        });
+        router.refresh();
+        return;
+      }
+    },
   });
 
   useEffect(() => {
