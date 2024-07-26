@@ -18,12 +18,6 @@ export const FileUploader = ({
   isError,
   renderPreview,
 }: FileUploaderProps) => {
-  const [preview, setPreview] = useState<File[] | null>(value);
-
-  useEffect(() => {
-    setPreview(value);
-  }, [value]);
-
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
       switch (mode) {
@@ -32,36 +26,30 @@ export const FileUploader = ({
           break;
         }
         case 'multiple': {
-          const newFiles = preview ? [...preview, ...acceptedFiles] : acceptedFiles;
+          const newFiles = value ? [...value, ...acceptedFiles] : acceptedFiles;
           onChange(newFiles);
           break;
         }
       }
     },
-    [mode, onChange, preview],
+    [mode, onChange, value],
   );
 
   const onPreviewFileDelete = useCallback(
     (name: string): File[] | undefined => {
-      const newFiles = preview?.filter((item) => item.name !== name);
+      const newFiles = value?.filter((item) => item.name !== name);
 
       if (!newFiles) return;
 
-      setPreview((prev) => {
-        if (prev) {
-          return newFiles;
-        }
-        return prev;
-      });
       onChange(newFiles);
     },
-    [preview, onChange],
+    [value, onChange],
   );
 
   const onUpdateFile = useCallback(
     (name: string, file: File) => {
-      if (!preview) return;
-      const newFiles = preview.map((prev) => {
+      if (!value) return;
+      const newFiles = value.map((prev) => {
         if (prev.name === name) {
           return file;
         }
@@ -70,7 +58,7 @@ export const FileUploader = ({
 
       onChange(newFiles);
     },
-    [preview, onChange],
+    [value, onChange],
   );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -79,8 +67,8 @@ export const FileUploader = ({
   });
 
   const memoizedPreview = useMemo(
-    () => preview && renderPreview && renderPreview(preview, setPreview, onPreviewFileDelete, onUpdateFile),
-    [preview, renderPreview, onPreviewFileDelete, onUpdateFile],
+    () => value && renderPreview && renderPreview({ preview: value, onPreviewFileDelete, onUpdateFile }),
+    [value, renderPreview, onPreviewFileDelete, onUpdateFile],
   );
 
   return (

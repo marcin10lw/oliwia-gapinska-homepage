@@ -72,7 +72,7 @@ export const EditPreviewImageForm = ({
         onChange={(files) => setFieldValue('previewImage', files[0])}
         error={errors.previewImage && touched.previewImage ? errors.previewImage : undefined}
         mode="single"
-        renderPreview={(preview, _, onPreviewFileDelete, onUpdateFile) => {
+        renderPreview={({ preview, onPreviewFileDelete, onUpdateFile }) => {
           return (
             preview &&
             preview.length > 0 && (

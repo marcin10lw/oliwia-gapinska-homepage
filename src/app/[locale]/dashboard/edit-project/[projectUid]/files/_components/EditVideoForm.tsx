@@ -69,7 +69,7 @@ export const EditVideoForm = ({ videoMedia, projectUid }: { videoMedia?: Media; 
         mode="single"
         type="video"
         accept={{ 'video/*': VIDEO_ACCEPTED_FORMATS }}
-        renderPreview={(preview, _, onPreviewFileDelete) => {
+        renderPreview={({ preview, onPreviewFileDelete }) => {
           const video = preview[0];
           return (
             video && (

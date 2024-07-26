@@ -80,7 +80,7 @@ export const EditImagesForm = ({
         value={values.images ? values.images : null}
         onChange={(files) => setFieldValue('images', files)}
         mode="multiple"
-        renderPreview={(preview, _, onPreviewFileDelete, onUpdateFile) => {
+        renderPreview={({ preview, onPreviewFileDelete, onUpdateFile }) => {
           return (
             preview &&
             preview.length > 0 && (

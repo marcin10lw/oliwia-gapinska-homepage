@@ -1,4 +1,4 @@
-import { Dispatch, ReactNode, SetStateAction } from 'react';
+import { ReactNode } from 'react';
 import { Accept } from 'react-dropzone';
 
 export type FileUploaderProps = {
@@ -9,10 +9,13 @@ export type FileUploaderProps = {
   type?: 'image' | 'video';
   accept?: Accept;
   isError?: boolean;
-  renderPreview?: (
-    files: File[],
-    setPreview: Dispatch<SetStateAction<File[] | null>>,
-    onPreviewFileDelete: (name: string) => File[] | undefined,
-    onUpdateFile: (name: string, file: File) => void,
-  ) => ReactNode;
+  renderPreview?: ({
+    preview,
+    onPreviewFileDelete,
+    onUpdateFile,
+  }: {
+    preview: File[];
+    onPreviewFileDelete: (name: string) => File[] | undefined;
+    onUpdateFile: (name: string, file: File) => void;
+  }) => ReactNode;
 };

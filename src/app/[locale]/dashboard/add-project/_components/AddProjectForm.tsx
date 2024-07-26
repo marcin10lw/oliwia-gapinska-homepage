@@ -125,7 +125,7 @@ export const AddProjectForm = ({
             onChange={(files) => setFieldValue('previewImage', files[0])}
             error={errors.previewImage && touched.previewImage ? errors.previewImage : undefined}
             mode="single"
-            renderPreview={(preview, _, onPreviewFileDelete, onUpdateFile) => {
+            renderPreview={({ preview, onPreviewFileDelete, onUpdateFile }) => {
               return (
                 preview &&
                 preview.length > 0 && (
@@ -157,7 +157,7 @@ export const AddProjectForm = ({
             value={values.images ? values.images : null}
             onChange={(files) => setFieldValue('images', files)}
             mode="multiple"
-            renderPreview={(preview, _, onPreviewFileDelete, onUpdateFile) => {
+            renderPreview={({ preview, onPreviewFileDelete, onUpdateFile }) => {
               return (
                 preview &&
                 preview.length > 0 && (
@@ -197,7 +197,7 @@ export const AddProjectForm = ({
             mode="single"
             type="video"
             accept={{ 'video/*': VIDEO_ACCEPTED_FORMATS }}
-            renderPreview={(preview, _, onPreviewFileDelete) => {
+            renderPreview={({ preview, onPreviewFileDelete }) => {
               const video = preview[0];
               return (
                 video && (
