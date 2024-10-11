@@ -2,7 +2,7 @@ import { Footer } from '@/components/Footer';
 import { Categories, Hero } from './_components';
 import { ContactSection } from '@/components/ContactSection';
 
-export default function Home() {
+export default async function Home() {
   return (
     <main>
       <Hero />
