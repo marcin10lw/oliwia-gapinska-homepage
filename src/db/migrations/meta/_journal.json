@@ -5,22 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1728418101609,
-      "tag": "0000_slippery_triathlon",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1728681076215,
-      "tag": "0001_thick_famine",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1728681280743,
-      "tag": "0002_black_pandemic",
+      "when": 1728746665619,
+      "tag": "0000_luxuriant_talisman",
       "breakpoints": true
     }
   ]

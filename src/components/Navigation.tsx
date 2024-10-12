@@ -1,23 +1,20 @@
 'use client';
 
 import { useSession } from 'next-auth/react';
-import { useTranslations } from 'next-intl';
 import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
 import Link from 'next/link';
 
 import { FRONTEND_ROUTES } from '@/lib/navigation/routes.frontend';
-import { LocaleSwitcher } from './LocaleSwitcher';
 import { SignOutButton } from './SignOutButton';
-import { usePathname } from '@/lib/navigation';
 import { cn } from '@/lib/utils';
 import { Logo } from './Logo';
+import { usePathname } from 'next/navigation';
 
 export const Navigation = () => {
   const [navOpen, setNavOpen] = useState(false);
   const { data: session } = useSession();
   const pathname = usePathname();
-  const t = useTranslations('');
 
   const closeMenu = () => setNavOpen(false);
 
@@ -55,7 +52,7 @@ export const Navigation = () => {
                     )}
                     onClick={closeMenu}
                   >
-                    {t('nav.home')}
+                    strona główna
                   </Link>
                 </li>
                 <li>
@@ -69,7 +66,7 @@ export const Navigation = () => {
                     )}
                     onClick={closeMenu}
                   >
-                    {t('nav.about')}
+                    o mnie
                   </Link>
                 </li>
                 {!!session && (
@@ -97,10 +94,6 @@ export const Navigation = () => {
                   </>
                 )}
               </ul>
-
-              <div className="lg:ml-2">
-                <LocaleSwitcher />
-              </div>
               <button onClick={() => setNavOpen((prev) => !prev)} className="ml-4 lg:hidden">
                 {navOpen ? <X className="size-6" /> : <Menu className="size-6" />}
               </button>

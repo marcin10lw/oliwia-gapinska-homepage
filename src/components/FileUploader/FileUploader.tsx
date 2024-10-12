@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 
-import { IMAGE_ACCEPTED_FORMATS } from '@/app/[locale]/dashboard/_components/constants';
+import { IMAGE_ACCEPTED_FORMATS } from '@/app/dashboard/_components/constants';
 import { FileUploaderProps } from './types';
 import { uploaderInfo } from './constants';
 import { cn } from '@/lib/utils';
